@@ -21,7 +21,7 @@ const {
 <!-- STICKY GLASS NAVIGATION BAR -->
 <header
   id="main-nav"
-  class="fixed top-0 left-0 right-0 z-50 bg-[#F0F0EB]/85 backdrop-blur-xl border-b border-stone-300/80 transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 bg-[#F0F0EB]/85 backdrop-blur-xl border-b border-stone-300/80 transition-all duration-300 font-sans"
 >
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-3 md:py-3.5 flex items-center justify-between">
     <!-- Brand Logo -->
@@ -31,35 +31,35 @@ const {
       >
         <iconify-icon icon="solar:pen-bold" class="text-base"></iconify-icon>
       </div>
-      <span class="font-display font-bold tracking-tighter text-lg text-stone-900">
+      <span class="font-sans font-bold tracking-tight text-lg text-stone-900">
         {brandName}<span class="text-stone-400 font-light">{brandSuffix}</span>
       </span>
     </a>
 
     <!-- Desktop Section Jump Links -->
-    <nav class="hidden md:flex items-center gap-7 font-mono text-[11px] uppercase tracking-widest text-stone-600 font-medium">
+    <nav class="hidden md:flex items-center gap-7 font-sans text-xs uppercase tracking-wider text-stone-600 font-semibold">
       <a href="/#hero-title" class="hover:text-stone-950 transition-colors">01 // Visual</a>
       <a href="/#tech-architecture" class="hover:text-stone-950 transition-colors">02 // Arquitetura</a>
       <a href="/#precision-experience" class="hover:text-stone-950 transition-colors">03 // Telemetria</a>
-      <a href="/pagina-2" class="hover:text-stone-950 transition-colors flex items-center gap-1 font-bold">
+      <a href="/pagina-2" class="hover:text-stone-950 transition-colors flex items-center gap-1.5 font-bold">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
         04 // Catálogo
       </a>
-      <a href="/pagina-3" class="hover:text-stone-950 transition-colors flex items-center gap-1 font-bold">
+      <a href="/pagina-3" class="hover:text-stone-950 transition-colors flex items-center gap-1.5 font-bold">
         05 // Detalhes
       </a>
     </nav>
 
     <!-- Stock Status, Desktop CTA & Mobile Toggle -->
     <div class="flex items-center gap-2 sm:gap-4">
-      <span class="hidden lg:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-stone-600 bg-white/70 px-3 py-1.5 rounded-lg border border-stone-300/60 shadow-sm">
+      <span class="hidden lg:inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-wider text-stone-600 bg-white/70 px-3 py-1.5 rounded-lg border border-stone-300/60 shadow-sm font-semibold">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         <span>{stockStatus}</span>
       </span>
 
       <!-- CTA Button (Visible on desktop & larger mobile) -->
       <div class="hidden sm:block">
-        <Button id="nav-cta-btn" variant="beam" size="sm" rounded="rounded-lg" href="/pagina-2">
+        <Button id="nav-cta-btn" variant="beam" size="sm" rounded="rounded-lg" href="/pagina-2" class="[&_.btn-beam-content]:!font-sans [&_.btn-beam-content]:font-bold">
           {ctaText}
         </Button>
       </div>
@@ -89,25 +89,25 @@ const {
   <!-- Mobile Menu Drawer Dropdown -->
   <div
     id="mobile-menu-drawer"
-    class="fixed top-[57px] left-0 right-0 z-40 md:hidden bg-[#F0F0EB]/95 backdrop-blur-2xl border-b border-stone-300/90 shadow-2xl transition-all duration-300 ease-in-out -translate-y-[120%] opacity-0 pointer-events-none max-h-[calc(100dvh-57px)] overflow-y-auto"
+    class="fixed top-[57px] left-0 right-0 z-40 md:hidden bg-[#F0F0EB]/95 backdrop-blur-2xl border-b border-stone-300/90 shadow-2xl transition-all duration-300 ease-in-out -translate-y-[120%] opacity-0 pointer-events-none max-h-[calc(100dvh-57px)] overflow-y-auto font-sans"
   >
     <div class="px-5 py-4 flex items-center justify-between border-b border-stone-300/60 bg-white/40">
-      <div class="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-stone-700 bg-white/90 px-3 py-1.5 rounded-lg border border-stone-300/70 shadow-sm">
+      <div class="inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-wider text-stone-700 bg-white/90 px-3 py-1.5 rounded-lg border border-stone-300/70 shadow-sm font-semibold">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         <span>{stockStatus} // Lote VIP Ativo</span>
       </div>
-      <span class="font-mono text-[10px] text-stone-400 uppercase tracking-widest">LINHA 2026</span>
+      <span class="font-sans text-[11px] text-stone-400 uppercase tracking-wider font-semibold">LINHA 2026</span>
     </div>
 
     <!-- Mobile Navigation Links -->
-    <nav class="p-4 space-y-1.5 font-mono">
+    <nav class="p-4 space-y-1.5 font-sans">
       <a
         href="/#hero-title"
         class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl hover:bg-white/80 active:bg-white transition-all text-stone-800 hover:text-stone-950 group"
       >
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold">01</span>
-          <span class="font-display font-semibold text-base text-stone-900 tracking-tight">Visual & Design</span>
+          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold font-sans">01</span>
+          <span class="font-sans font-semibold text-base text-stone-900 tracking-tight">Visual & Design</span>
         </div>
         <iconify-icon icon="solar:arrow-right-linear" class="text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 transition-all text-lg"></iconify-icon>
       </a>
@@ -117,8 +117,8 @@ const {
         class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl hover:bg-white/80 active:bg-white transition-all text-stone-800 hover:text-stone-950 group"
       >
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold">02</span>
-          <span class="font-display font-semibold text-base text-stone-900 tracking-tight">Arquitetura Tecnológica</span>
+          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold font-sans">02</span>
+          <span class="font-sans font-semibold text-base text-stone-900 tracking-tight">Arquitetura Tecnológica</span>
         </div>
         <iconify-icon icon="solar:arrow-right-linear" class="text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 transition-all text-lg"></iconify-icon>
       </a>
@@ -128,8 +128,8 @@ const {
         class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl hover:bg-white/80 active:bg-white transition-all text-stone-800 hover:text-stone-950 group"
       >
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold">03</span>
-          <span class="font-display font-semibold text-base text-stone-900 tracking-tight">Telemetria & Simulador</span>
+          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold font-sans">03</span>
+          <span class="font-sans font-semibold text-base text-stone-900 tracking-tight">Telemetria & Simulador</span>
         </div>
         <iconify-icon icon="solar:arrow-right-linear" class="text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 transition-all text-lg"></iconify-icon>
       </a>
@@ -139,13 +139,13 @@ const {
         class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-white/50 border border-stone-300/60 hover:bg-white transition-all text-stone-900 group shadow-sm"
       >
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-stone-900 text-white flex items-center justify-center text-xs font-bold shadow-sm">04</span>
+          <span class="w-7 h-7 rounded-lg bg-stone-900 text-white flex items-center justify-center text-xs font-bold shadow-sm font-sans">04</span>
           <div class="flex flex-col">
-            <span class="font-display font-bold text-base text-stone-900 tracking-tight flex items-center gap-1.5">
+            <span class="font-sans font-bold text-base text-stone-900 tracking-tight flex items-center gap-1.5">
               Catálogo Completo
-              <span class="px-1.5 py-0.5 text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300/60 rounded font-mono font-bold">9 Modelos</span>
+              <span class="px-1.5 py-0.5 text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300/60 rounded font-sans font-bold">9 Modelos</span>
             </span>
-            <span class="font-mono text-[10px] text-stone-500">Linha Pigmentum 2026</span>
+            <span class="font-sans text-xs text-stone-500 font-medium">Linha Pigmentum 2026</span>
           </div>
         </div>
         <iconify-icon icon="solar:arrow-right-bold" class="text-stone-900 group-hover:translate-x-1.5 transition-transform text-xl"></iconify-icon>
@@ -156,25 +156,25 @@ const {
         class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl hover:bg-white/80 active:bg-white transition-all text-stone-800 hover:text-stone-950 group"
       >
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold">05</span>
-          <span class="font-display font-semibold text-base text-stone-900 tracking-tight">Especificações & Preços</span>
+          <span class="w-7 h-7 rounded-lg bg-stone-200/80 text-stone-700 group-hover:bg-stone-900 group-hover:text-white transition-colors flex items-center justify-center text-xs font-bold font-sans">05</span>
+          <span class="font-sans font-semibold text-base text-stone-900 tracking-tight">Especificações & Preços</span>
         </div>
         <iconify-icon icon="solar:arrow-right-linear" class="text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 transition-all text-lg"></iconify-icon>
       </a>
     </nav>
 
     <!-- Mobile Drawer Footer CTA -->
-    <div class="p-5 pt-3 space-y-3 bg-stone-200/50 border-t border-stone-300/70">
+    <div class="p-5 pt-3 space-y-3 bg-stone-200/50 border-t border-stone-300/70 font-sans">
       <a
         href="/pagina-2"
         class="mobile-nav-link btn-beam w-full px-[1px] py-[1px] group cursor-pointer shadow-md shadow-stone-950/10 rounded-xl block text-center"
       >
-        <div class="btn-beam-content font-mono uppercase font-bold flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs tracking-wider">
+        <div class="btn-beam-content !font-sans uppercase font-bold flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs tracking-wider">
           <span>{ctaText}</span>
           <iconify-icon icon="solar:arrow-right-linear" class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
         </div>
       </a>
-      <div class="flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-stone-500 pt-1">
+      <div class="flex items-center justify-between font-sans text-[10px] uppercase tracking-wider text-stone-500 font-medium pt-1">
         <span>ARTOOLS PRECISION</span>
         <span>SWISS TECH 0.01MM</span>
       </div>
