@@ -1,11 +1,1012 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import StrokeButton from "../components/StrokeButton.astro";
+import StressButton from "../components/StressButton.astro";
+import StatCard from "../components/StatCard.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Precision Series - A caneta mais tecnológica do mundo">
+  <!-- Smooth Scroll Wrapper -->
+  <main id="smooth-wrapper" class="relative w-full">
+    <div id="smooth-content">
+
+      <!-- Hero Section (Pinned by GSAP) -->
+      <section class="hero-section relative h-[100dvh] w-full flex items-center overflow-hidden bg-[#F0F0EB] z-10">
+        <!-- Fullscreen Video Container / Canvas Image Sequence -->
+        <div class="video-container absolute inset-0 w-full h-full z-0 origin-center overflow-hidden bg-stone-900">
+          <canvas
+            id="hero-canvas"
+            class="absolute inset-0 w-full h-full z-0 block"
+          ></canvas>
+          <!-- Gradient overlays for text legibility -->
+          <div class="absolute inset-0 bg-gradient-to-r from-[#F0F0EB] via-[#F0F0EB]/80 to-transparent w-[90%] md:w-[70%] pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#F0F0EB] via-transparent to-transparent h-[40%] bottom-0 top-auto pointer-events-none"></div>
+        </div>
+
+        <!-- Main Content (Floating over video) -->
+        <div class="max-w-[1440px] w-full mx-auto px-6 md:px-12 lg:px-20 flex items-center relative z-10 h-full pointer-events-none">
+          <!-- Left Column: Typography & Actions -->
+          <div class="hero-left-content w-full max-w-2xl flex flex-col justify-center h-full pt-20 lg:pt-0 pointer-events-auto">
+            <div class="space-y-3.5 md:space-y-4">
+              <!-- Eyebrow Badge -->
+              <div class="hero-element inline-flex items-center gap-2 px-3 py-1.5 bg-white/70 border border-stone-300/50 backdrop-blur-sm rounded-lg font-mono text-[10px] md:text-xs uppercase tracking-widest text-stone-600 shadow-sm shimmer-slide">
+                <span class="w-1.5 h-1.5 bg-stone-900 rounded-full animate-pulse"></span>
+                PRECISION SERIES
+              </div>
+
+              <!-- Main Title -->
+              <h1 id="hero-title" class="font-display font-bold leading-[0.88] tracking-tighter text-[3.2rem] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] flex flex-col items-start select-none">
+                <span class="text-reveal-wrapper"><span class="text-reveal-content text-stone-900">A caneta</span></span>
+                <span class="text-reveal-wrapper text-stroke"><span class="text-reveal-content">mais tecnológica</span></span>
+                <span class="text-reveal-wrapper"><span class="text-reveal-content text-stone-400">do mundo.</span></span>
+              </h1>
+
+              <!-- Description -->
+              <p class="hero-element text-sm md:text-base text-stone-800 max-w-md font-medium leading-snug drop-shadow-sm">
+                Engenharia de precisão fundida com materiais aeroespaciais. Redefinindo o ato de
+                escrever através do silêncio visual e de um luxo genuinamente minimalista.
+              </p>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-wrap gap-4 items-center pt-2 md:pt-3">
+                <!-- Primary Button -->
+                <Button id="hero-buy-btn" variant="beam" class="hero-element" icon="solar:arrow-right-linear">
+                  Comprar Agora
+                </Button>
+
+                <!-- Secondary Button -->
+                <Button id="hero-explore-btn" variant="outline" class="hero-element">
+                  Explorar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE DIVIDER STRIP -->
+      <div class="relative z-30 border-y border-stone-300/80 bg-white overflow-hidden py-3 text-stone-900 select-none shadow-sm">
+        <div class="animate-marquee whitespace-nowrap flex items-center">
+          <div class="flex gap-12 items-center font-mono text-xs uppercase tracking-widest text-stone-500 font-medium">
+            <span class="text-stone-900 font-bold">ARTOOLS PIGMENTUM 0.1</span> <span class="text-stone-300">•</span>
+            <span>ENGENHARIA SUÍÇA 0.01MM</span> <span class="text-stone-300">•</span>
+            <span>ALUMÍNIO AEROESPACIAL 6061-T6</span> <span class="text-stone-300">•</span>
+            <span>TINTA NANOMAGNÉTICA HD</span> <span class="text-stone-300">•</span>
+            <span>EQUALIZAÇÃO BAROMÉTRICA</span> <span class="text-stone-300">•</span>
+            <span>GARANTIA VITALÍCIA TOTAL</span> <span class="text-stone-300">•</span>
+          </div>
+          <div class="flex gap-12 items-center font-mono text-xs uppercase tracking-widest text-stone-500 font-medium pl-12">
+            <span class="text-stone-900 font-bold">ARTOOLS PIGMENTUM 0.1</span> <span class="text-stone-300">•</span>
+            <span>ENGENHARIA SUÍÇA 0.01MM</span> <span class="text-stone-300">•</span>
+            <span>ALUMÍNIO AEROESPACIAL 6061-T6</span> <span class="text-stone-300">•</span>
+            <span>TINTA NANOMAGNÉTICA HD</span> <span class="text-stone-300">•</span>
+            <span>EQUALIZAÇÃO BAROMÉTRICA</span> <span class="text-stone-300">•</span>
+            <span>GARANTIA VITALÍCIA TOTAL</span> <span class="text-stone-300">•</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Arquitetura Tecnológica (Dobra 2) -->
+      <section id="tech-architecture" class="relative w-full min-h-screen py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-[#F0F0EB] text-stone-900 border-t border-stone-300/80 z-20 overflow-hidden">
+        <!-- Ambient Glow Mesh Backgrounds -->
+        <div class="glow-mesh w-[500px] h-[500px] bg-white top-1/4 -left-32"></div>
+        <div class="glow-mesh w-[600px] h-[600px] bg-stone-300/50 bottom-10 -right-32"></div>
+
+        <!-- Grid Guide Lines overlay for section -->
+        <div class="absolute inset-0 pointer-events-none grid grid-cols-12 z-0 h-full w-full opacity-40">
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="grid-guide-line col-span-1"></div>
+          <div class="col-span-1"></div>
+        </div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+          <!-- Section Header -->
+          <div class="max-w-3xl space-y-4 mb-16 md:mb-20">
+            <div class="tech-header-element inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/80 border border-stone-300/70 backdrop-blur-md rounded-lg font-mono text-[10px] md:text-xs uppercase tracking-widest text-stone-700 shadow-sm shimmer-slide">
+              <span class="w-2 h-2 bg-stone-900 rounded-full animate-ping"></span>
+              <span>02 // ARQUITETURA DE PRECISÃO</span>
+            </div>
+
+            <h2 class="tech-header-element font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-tighter text-stone-950 leading-[0.95]">
+              Arquitetura <span class="px-3.5 py-1 bg-stone-900 text-[#F0F0EB] rounded-2xl shadow-xl inline-block">Tecnológica</span>
+            </h2>
+
+            <p class="tech-header-element text-base md:text-xl text-stone-700 font-medium leading-relaxed max-w-2xl pt-2">
+              Desenvolvida sob os padrões mais rigorosos da alta engenharia suíça. Cada micro-componente da ARTOOLS Pigmentum é usinado para redefinir o equilíbrio perfeito entre resistência aeroespacial e escrita indelével.
+            </p>
+          </div>
+
+          <!-- 2-Column Main Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            <!-- Left Column: Interactive Product Card with Hotspots & Flashlight Effect -->
+            <div class="lg:col-span-6 tech-card-visual">
+              <div class="flashlight-card relative rounded-3xl p-4 md:p-6 border border-white/80 shadow-2xl shadow-stone-950/10 group overflow-hidden bg-white/50 backdrop-blur-xl">
+                <!-- Floating Technical Badges / Hotspots over Pen -->
+                <div class="relative w-full aspect-[4/3] md:aspect-[16/11] rounded-2xl overflow-hidden bg-stone-100 flex items-center justify-center">
+                  <img
+                    src="/assets/artools_pen_tech_macro.png"
+                    alt="ARTOOLS Pigmentum Precision Pen"
+                    class="w-full h-full object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="eager"
+                  />
+                  
+                  <!-- Hotspot 1: Swiss Nib -->
+                  <div class="absolute top-[28%] left-[22%] group/hotspot cursor-pointer">
+                    <div class="relative flex items-center justify-center">
+                      <span class="animate-ping absolute inline-flex h-6 w-6 rounded-full bg-stone-900/30"></span>
+                      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-stone-900 border-2 border-white shadow-md"></span>
+                      <div class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1.5 bg-stone-900/90 text-white backdrop-blur-md rounded-lg font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover/hotspot:opacity-100 transition-all duration-300 pointer-events-none shadow-lg">
+                        0.01mm Precision Nib
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Hotspot 2: Aerospace Aluminum Body -->
+                  <div class="absolute top-[52%] left-[48%] group/hotspot cursor-pointer">
+                    <div class="relative flex items-center justify-center">
+                      <span class="animate-ping absolute inline-flex h-6 w-6 rounded-full bg-stone-900/30"></span>
+                      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-stone-900 border-2 border-white shadow-md"></span>
+                      <div class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1.5 bg-stone-900/90 text-white backdrop-blur-md rounded-lg font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover/hotspot:opacity-100 transition-all duration-300 pointer-events-none shadow-lg">
+                        6061-T6 Aerospace Monoblock
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Hotspot 3: Archival Ink Flow -->
+                  <div class="absolute bottom-[25%] right-[25%] group/hotspot cursor-pointer">
+                    <div class="relative flex items-center justify-center">
+                      <span class="animate-ping absolute inline-flex h-6 w-6 rounded-full bg-stone-900/30"></span>
+                      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-stone-900 border-2 border-white shadow-md"></span>
+                      <div class="absolute right-6 top-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1.5 bg-stone-900/90 text-white backdrop-blur-md rounded-lg font-mono text-[10px] uppercase tracking-wider opacity-0 group-hover/hotspot:opacity-100 transition-all duration-300 pointer-events-none shadow-lg">
+                        Nanotech Pigment Matrix
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card Specs Bar at Bottom -->
+                <div class="mt-4 pt-4 border-t border-stone-200/80 flex flex-wrap items-center justify-between gap-3 text-stone-600 font-mono text-[11px] uppercase tracking-wider">
+                  <div class="flex items-center gap-2">
+                    <iconify-icon icon="solar:ruler-linear" class="text-sm text-stone-900"></iconify-icon>
+                    <span>Diâmetro: 8.5mm</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <iconify-icon icon="solar:scale-linear" class="text-sm text-stone-900"></iconify-icon>
+                    <span>Massa: 14.8g</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <iconify-icon icon="solar:shield-check-linear" class="text-sm text-stone-900"></iconify-icon>
+                    <span>Garantia: Vitalícia</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Numbered Feature Benefits List -->
+            <div class="lg:col-span-6 space-y-4">
+              <!-- Benefit 01 -->
+              <div class="tech-benefit-item bg-white/70 hover:bg-white border border-stone-300/80 rounded-2xl p-6 md:p-7 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
+                <div class="flex items-start gap-4 md:gap-6">
+                  <div class="w-10 h-10 md:w-11 md:h-11 rounded-lg bg-stone-900 text-white font-mono font-bold text-xs md:text-sm flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    01
+                  </div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <h3 class="font-display font-bold text-lg md:text-xl text-stone-900 group-hover:text-black transition-colors">
+                        Engenharia Suíça de Precisão
+                      </h3>
+                      <span class="px-2.5 py-0.5 bg-stone-200/80 border border-stone-300/70 font-mono text-[10px] uppercase font-semibold text-stone-800 rounded-md">0.01mm Spec</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-stone-600 font-medium leading-relaxed">
+                      Mecanismo de ponta usinado com tolerância micrométrica de 0.01mm sob padrões de relojoaria suíça. Elimina qualquer folga ou micro-vibração ao tocar o papel.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Benefit 02 -->
+              <div class="tech-benefit-item bg-white/70 hover:bg-white border border-stone-300/80 rounded-2xl p-6 md:p-7 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
+                <div class="flex items-start gap-4 md:gap-6">
+                  <div class="w-10 h-10 md:w-11 md:h-11 rounded-lg bg-stone-900 text-white font-mono font-bold text-xs md:text-sm flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    02
+                  </div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <h3 class="font-display font-bold text-lg md:text-xl text-stone-900 group-hover:text-black transition-colors">
+                        Alumínio Aeroespacial 6061-T6
+                      </h3>
+                      <span class="px-2.5 py-0.5 bg-stone-200/80 border border-stone-300/70 font-mono text-[10px] uppercase font-semibold text-stone-800 rounded-md">6061-T6 Alloy</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-stone-600 font-medium leading-relaxed">
+                      Corpo monobloco usinado em CNC a partir de um lingote maciço de liga 6061-T6 utilizada em aeronaves. Proporciona leveza biomecânica impecável e dureza extrema.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Benefit 03 -->
+              <div class="tech-benefit-item bg-white/70 hover:bg-white border border-stone-300/80 rounded-2xl p-6 md:p-7 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
+                <div class="flex items-start gap-4 md:gap-6">
+                  <div class="w-10 h-10 md:w-11 md:h-11 rounded-lg bg-stone-900 text-white font-mono font-bold text-xs md:text-sm flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    03
+                  </div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <h3 class="font-display font-bold text-lg md:text-xl text-stone-900 group-hover:text-black transition-colors">
+                        Tinta Nanotecnológica Arquivística
+                      </h3>
+                      <span class="px-2.5 py-0.5 bg-stone-200/80 border border-stone-300/70 font-mono text-[10px] uppercase font-semibold text-stone-800 rounded-md">+100 Anos</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-stone-600 font-medium leading-relaxed">
+                      Formulação exclusiva com partículas nanométricas de carbono puro. Secagem ultra-rápida, totalmente impermeável, resistente à luz solar UV e solventes químicos.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Benefit 04 -->
+              <div class="tech-benefit-item bg-white/70 hover:bg-white border border-stone-300/80 rounded-2xl p-6 md:p-7 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
+                <div class="flex items-start gap-4 md:gap-6">
+                  <div class="w-10 h-10 md:w-11 md:h-11 rounded-lg bg-stone-900 text-white font-mono font-bold text-xs md:text-sm flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    04
+                  </div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <h3 class="font-display font-bold text-lg md:text-xl text-stone-900 group-hover:text-black transition-colors">
+                        Fluxo Micro-Capilar Ativo
+                      </h3>
+                      <span class="px-2.5 py-0.5 bg-stone-200/80 border border-stone-300/70 font-mono text-[10px] uppercase font-semibold text-stone-800 rounded-md">Zero Leak</span>
+                    </div>
+                    <p class="text-xs md:text-sm text-stone-600 font-medium leading-relaxed">
+                      Sistema interno de equalização de pressão atmosférica que assegura saída de tinta contínua, homogênea e sem borrões, independentemente da altitude ou velocidade de escrita.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Accent Bar & Progress Line -->
+          <div class="mt-16 md:mt-20 pt-8 border-t border-stone-300/80 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4 w-full md:w-auto">
+              <span class="font-mono text-xs text-stone-500 uppercase tracking-widest">Progressão de Engenharia</span>
+              <div class="h-1 bg-stone-300 rounded-full flex-1 md:w-64 overflow-hidden relative">
+                <div id="tech-progress-bar" class="h-full bg-stone-900 rounded-full w-0 transition-all duration-300"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-stone-600">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>ARTOOLS PIGMENTUM 0.1 ARCHITECTURE</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Telemetria & Experiência de Traço (Dobra 3) -->
+      <section id="precision-experience" class="relative w-full min-h-screen py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-[#0c0a09] text-stone-100 border-t border-stone-800/80 z-20 overflow-hidden">
+        <!-- Ambient Glow Mesh Backgrounds -->
+        <div class="glow-mesh w-[600px] h-[600px] bg-stone-700/30 top-10 right-10"></div>
+        <div class="glow-mesh w-[500px] h-[500px] bg-white/10 bottom-10 left-10"></div>
+
+        <!-- Grid Guide Lines overlay for dark section -->
+        <div class="absolute inset-0 pointer-events-none grid grid-cols-12 z-0 h-full w-full opacity-20">
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="border-r border-stone-700 col-span-1"></div>
+          <div class="col-span-1"></div>
+        </div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10 space-y-16 md:space-y-24">
+          <!-- Section Header -->
+          <div class="max-w-3xl space-y-4">
+            <div class="exp-header-element inline-flex items-center gap-2 px-3.5 py-1.5 bg-stone-900/90 border border-stone-700/80 backdrop-blur-md rounded-lg font-mono text-[10px] md:text-xs uppercase tracking-widest text-stone-300 shadow-sm shimmer-slide">
+              <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+              <span>03 // TELEMETRIA & SIMULADOR DE TRAÇO</span>
+            </div>
+
+            <h2 class="exp-header-element font-display font-bold text-4xl md:text-6xl lg:text-7xl tracking-tighter text-white leading-[0.95]">
+              Precisão <span class="px-3.5 py-1 bg-white text-stone-950 rounded-2xl shadow-2xl inline-block">Micrométrica</span>
+            </h2>
+
+            <p class="exp-header-element text-base md:text-xl text-stone-400 font-medium leading-relaxed max-w-2xl pt-2">
+              Do rascunho técnico de engenharia à assinatura de contratos de alto valor. Selecione a espessura de ponta ideal e teste visualmente a densidade do traço nanotecnológico.
+            </p>
+          </div>
+
+          <!-- 4 Metric Impact Counter Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StatCard
+              label="Rendimento"
+              icon="solar:chart-2-linear"
+              value="1.200m"
+              description="Autonomia ininterrupta de escrita por cartucho de pigmento concentrado."
+            />
+            <StatCard
+              label="Secagem"
+              icon="solar:stopwatch-linear"
+              value="0.2s"
+              description="Absorção ultra-rápida. Zero borrões em papeis lisos ou para pessoas canhotas."
+            />
+            <StatCard
+              label="Durabilidade"
+              icon="solar:shield-star-linear"
+              value="+100 Anos"
+              description="Pigmento arquivístico à prova de água, radiação UV e solventes químicos."
+            />
+            <StatCard
+              label="Sensor Háptico"
+              icon="solar:tuning-square-2-linear"
+              value="8.192"
+              description="Níveis de resposta de contato para um fluxo constante em qualquer ângulo."
+            />
+          </div>
+
+          <!-- Interactive Stroke Simulator & Macro Ink Showcase -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+            <!-- Left: Interactive Stroke Tester Canvas Card -->
+            <div class="lg:col-span-7 bg-stone-900/80 border border-stone-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between backdrop-blur-xl shadow-2xl space-y-6">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-800 pb-4">
+                  <div>
+                    <span class="font-mono text-[10px] text-stone-400 uppercase tracking-widest block mb-1">SIMULADOR DE TRAÇO EM TEMPO REAL</span>
+                    <h3 class="font-display font-bold text-2xl text-white">Calibração de Ponta</h3>
+                  </div>
+                  
+                  <!-- Tip Size Selector Buttons -->
+                  <div class="flex items-center gap-1.5 bg-stone-950 p-1 rounded-xl border border-stone-800">
+                    <StrokeButton size="0.05" />
+                    <StrokeButton size="0.1" active />
+                    <StrokeButton size="0.3" />
+                    <StrokeButton size="0.5" />
+                    <StrokeButton size="0.8" />
+                  </div>
+                </div>
+
+                <!-- Dynamic Preview Canvas Container -->
+                <div class="relative mt-6 rounded-2xl bg-[#f5f4ef] border border-stone-300/40 p-6 md:p-8 min-h-[220px] flex flex-col justify-between overflow-hidden shadow-inner text-stone-900">
+                  <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(#1c1917 0.75px, transparent 0.75px); background-size: 16px 16px;"></div>
+
+                  <div class="relative z-10 flex justify-between items-start">
+                    <span id="stroke-spec-badge" class="px-2.5 py-1 bg-stone-900 text-white font-mono text-[10px] uppercase rounded-md shadow">
+                      ARTOOLS PIGMENTUM 0.1mm - TRAÇO DE PRECISÃO
+                    </span>
+                    <span id="stroke-density-tag" class="font-mono text-[11px] text-stone-600">
+                      Densidade Nanométrica: 99.8%
+                    </span>
+                  </div>
+
+                  <!-- Rendered SVG Stroke preview -->
+                  <div class="relative z-10 my-8 flex items-center justify-center">
+                    <svg width="100%" height="60" viewBox="0 0 500 60" class="w-full">
+                      <path id="stroke-svg-path" d="M 10 30 Q 120 10, 250 30 T 490 30" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-all duration-500 ease-out" />
+                    </svg>
+                  </div>
+
+                  <div class="relative z-10 flex flex-wrap justify-between items-center text-xs text-stone-700 font-medium">
+                    <span id="stroke-use-case">Aplicação: Ilustração de Arquitetura, hachura milimétrica e escrita técnica.</span>
+                    <span class="font-mono text-[10px] text-stone-500 uppercase">Resistência UV: Máxima</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-stone-800 flex flex-wrap items-center justify-between gap-4 text-xs text-stone-400 font-mono">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>Ponta de Safira Sintética Anti-Desgaste</span>
+                </div>
+                <span>Fluxo Micro-Capilar Ativo</span>
+              </div>
+            </div>
+
+            <!-- Right: Ink Precision Macro Photography & Stress Test Panel -->
+            <div class="lg:col-span-5 bg-stone-900/80 border border-stone-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+              <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 border border-stone-700/60 bg-stone-950">
+                <img
+                  src="/assets/artools_ink_precision_macro.png"
+                  alt="ARTOOLS Ink Precision Macro"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="eager"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white pointer-events-none">
+                  <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-stone-300 block">MACRO FOTO 8K</span>
+                    <span class="font-display font-bold text-lg">Ponto de Contato 0.1mm</span>
+                  </div>
+                  <span class="px-2 py-1 bg-white/20 backdrop-blur-md rounded font-mono text-[10px]">100x Zoom</span>
+                </div>
+              </div>
+
+              <!-- Interactive Stress Test Buttons -->
+              <div class="space-y-3">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-stone-400 block">RESISTÊNCIA EXTREMA COMPROVADA</span>
+                
+                <div class="grid grid-cols-3 gap-2">
+                  <StressButton
+                    stress="water"
+                    icon="solar:waterdrop-bold"
+                    iconColor="text-blue-400"
+                    title="100% Água"
+                    subtitle="Imersão total"
+                    active
+                  />
+                  <StressButton
+                    stress="uv"
+                    icon="solar:sun-2-bold"
+                    iconColor="text-amber-400"
+                    title="Sol & UV"
+                    subtitle="Zero fading"
+                  />
+                  <StressButton
+                    stress="chemical"
+                    icon="solar:test-tube-minimalistic-bold"
+                    iconColor="text-emerald-400"
+                    title="Químicos"
+                    subtitle="Álcool & Solventes"
+                  />
+                </div>
+
+                <div id="stress-desc-box" class="p-3 rounded-xl bg-stone-950/80 border border-stone-800 text-xs text-stone-300 font-medium">
+                  <span class="text-white font-bold block mb-0.5">Teste de Água:</span>
+                  Pigmentos de carbono fixam-se instantaneamente às fibras do papel. Sem manchas ou desbotamento mesmo sob chuva ou imersão direta.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Call To Action Bar in Section 3 -->
+          <div class="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <h4 class="font-display font-bold text-xl text-white">Pronto para elevar o seu traço ao nível máximo?</h4>
+              <p class="text-xs text-stone-400 mt-1">Envio imediato com estojo exclusivo ARTOOLS Pigmentum Series.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 items-center w-full sm:w-auto">
+              <Button
+                id="sec3-cta-btn"
+                variant="beam-light"
+                size="lg"
+                class="w-full sm:w-auto"
+                icon="solar:arrow-right-linear"
+              >
+                Garantir a Sua Pigmentum
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Video Background & Glow Manifesto Box (Dobra 4) -->
+      <section id="manifesto-glow-dobra4" class="relative w-full min-h-screen py-24 md:py-36 px-6 md:px-12 lg:px-20 bg-[#0c0a09] text-stone-100 z-20 overflow-hidden flex items-center justify-center">
+        <!-- Background Video Layer -->
+        <div class="absolute inset-0 w-full h-full z-0 overflow-hidden bg-black pointer-events-none">
+          <video
+            id="manifesto-video"
+            class="w-full h-full object-cover opacity-90 md:opacity-95 scale-100 filter brightness-105 contrast-110 saturate-105 transition-opacity duration-700"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="auto"
+          >
+            <source src="/assets/raw_files/video.mp4" type="video/mp4" />
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-black/20 to-[#0c0a09]/80"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(12,10,9,0.7)_100%)]"></div>
+        </div>
+
+        <!-- Vertical Grid Guidelines -->
+        <div class="absolute inset-0 pointer-events-none grid grid-cols-12 z-0 h-full w-full opacity-15">
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="border-r border-white/20 col-span-1"></div>
+          <div class="col-span-1"></div>
+        </div>
+
+        <!-- Main Content Container with Compact Glow Highlight Box -->
+        <div class="max-w-sm w-full mx-auto relative z-10 my-auto flex justify-center">
+          <div class="glow-manifesto-card relative group w-full rounded-[2rem] p-[1.5px] transition-all duration-700">
+            <!-- 1. Ambient Pulsing Aura Glow behind card -->
+            <div class="absolute -inset-4 bg-gradient-to-r from-white/30 via-stone-300/40 to-white/30 rounded-[2.5rem] blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-slow pointer-events-none"></div>
+
+            <!-- 2. Shimmer Conic Beam Animated Border Ring -->
+            <div class="absolute -inset-[1px] rounded-[2rem] overflow-hidden opacity-90 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-[conic-gradient(from_0deg,transparent_0_320deg,rgba(255,255,255,0.95)_360deg)] animate-[spin_3s_linear_infinite]"></div>
+            </div>
+
+            <!-- 3. Compact Glass Content Panel -->
+            <div class="flashlight-card relative z-10 rounded-[1.95rem] bg-stone-950/85 backdrop-blur-2xl p-8 md:p-10 border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.85)] text-center flex flex-col items-center justify-between space-y-6 overflow-hidden">
+              <div class="relative group/badge cursor-pointer">
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white text-stone-950 flex items-center justify-center shadow-[0_0_35px_rgba(255,255,255,0.7)] group-hover/badge:scale-110 transition-transform duration-300">
+                  <iconify-icon icon="solar:crown-star-bold" class="text-2xl md:text-3xl text-stone-900"></iconify-icon>
+                </div>
+              </div>
+
+              <div class="space-y-3 w-full">
+                <h3 class="font-display font-bold text-3xl md:text-4xl text-white tracking-tight">
+                  Artools<span class="font-light text-stone-400">Pro</span>
+                </h3>
+
+                <div class="w-8 h-[1.5px] bg-stone-700/80 mx-auto rounded-full"></div>
+
+                <p class="font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] text-stone-400">
+                  SIGNATURE SERIES • 2026
+                </p>
+              </div>
+
+              <Button
+                id="manifesto-access-btn"
+                variant="beam-light"
+                size="lg"
+                class="w-full pt-2"
+                icon="solar:arrow-right-linear"
+              >
+                Get Early Access
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Section-specific Animations & Interactions -->
+  <script is:inline>
+    function setupAnimations() {
+      if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+        setTimeout(setupAnimations, 50);
+        return;
+      }
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Hero Canvas WebP Image Sequence & Scroll Animation
+      const canvas = document.getElementById("hero-canvas");
+      const manifestoVideo = document.getElementById("manifesto-video");
+
+      if (manifestoVideo) {
+        manifestoVideo.muted = true;
+        manifestoVideo.defaultMuted = true;
+        manifestoVideo.playsInline = true;
+
+        const startVideoPlay = () => {
+          if (manifestoVideo.paused) {
+            manifestoVideo.muted = true;
+            manifestoVideo.play().catch(() => {});
+          }
+        };
+
+        startVideoPlay();
+
+        // Ensure playback when section enters view
+        if ("IntersectionObserver" in window) {
+          const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startVideoPlay();
+              }
+            });
+          }, { threshold: 0.1 });
+
+          const dobra4Section = document.getElementById("manifesto-glow-dobra4");
+          if (dobra4Section) videoObserver.observe(dobra4Section);
+        }
+
+        // Retry play on any user interaction in case autoplay policy blocked initial attempt
+        const triggerPlayOnInteraction = () => {
+          startVideoPlay();
+          window.removeEventListener("click", triggerPlayOnInteraction);
+          window.removeEventListener("scroll", triggerPlayOnInteraction);
+          window.removeEventListener("touchstart", triggerPlayOnInteraction);
+        };
+        window.addEventListener("click", triggerPlayOnInteraction, { once: true });
+        window.addEventListener("scroll", triggerPlayOnInteraction, { once: true });
+        window.addEventListener("touchstart", triggerPlayOnInteraction, { once: true });
+      }
+
+      // Entrance animation for text
+      const entranceTl = gsap.timeline({
+        onComplete: () => {
+          ScrollTrigger.refresh();
+        },
+      });
+
+      entranceTl.fromTo(
+        ".text-reveal-content",
+        { y: "110%", opacity: 0, filter: "blur(14px)" },
+        { y: "0%", opacity: 1, filter: "blur(0px)", duration: 1.2, stagger: 0.14, ease: "cubic-bezier(0.16, 1, 0.3, 1)" }
+      );
+
+      entranceTl.fromTo(
+        ".hero-element",
+        { y: "2.5rem", opacity: 0, filter: "blur(10px)" },
+        { y: "0rem", opacity: 1, filter: "blur(0px)", duration: 1.0, stagger: 0.09, ease: "cubic-bezier(0.16, 1, 0.3, 1)" },
+        "-=0.9"
+      );
+
+      // Hero Canvas Frame Controller
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        const frameCount = 192;
+        const images = new Array(frameCount);
+        const frameSeq = { frame: 0 };
+
+        const getFrameUrl = (index) =>
+          `/assets/video_frames/frame_${String(index + 1).padStart(4, "0")}.webp`;
+
+        function renderFrame(index) {
+          if (!ctx || !canvas) return;
+          const img = images[index];
+          if (!img || !img.complete || !img.naturalWidth) return;
+
+          const cw = canvas.width;
+          const ch = canvas.height;
+          const iw = img.naturalWidth;
+          const ih = img.naturalHeight;
+
+          const canvasRatio = cw / ch;
+          const imgRatio = iw / ih;
+
+          let drawW, drawH, drawX, drawY;
+
+          if (canvasRatio > imgRatio) {
+            drawW = cw;
+            drawH = cw / imgRatio;
+            drawX = 0;
+            drawY = (ch - drawH) / 2;
+          } else {
+            drawW = ch * imgRatio;
+            drawH = ch;
+            drawX = (cw - drawW) / 2;
+            drawY = 0;
+          }
+
+          ctx.clearRect(0, 0, cw, ch);
+          ctx.drawImage(img, drawX, drawY, drawW, drawH);
+        }
+
+        function resizeCanvas() {
+          if (!canvas) return;
+          const rect = canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = rect.width * dpr;
+          canvas.height = rect.height * dpr;
+          renderFrame(Math.round(frameSeq.frame));
+        }
+
+        // Load first frame immediately and render
+        const firstImg = new Image();
+        firstImg.src = getFrameUrl(0);
+        firstImg.onload = () => {
+          images[0] = firstImg;
+          resizeCanvas();
+        };
+        images[0] = firstImg;
+
+        // Preload remaining frames
+        for (let i = 1; i < frameCount; i++) {
+          const img = new Image();
+          img.src = getFrameUrl(i);
+          img.onload = () => {
+            if (Math.round(frameSeq.frame) === i) {
+              renderFrame(i);
+            }
+          };
+          images[i] = img;
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        // Hero ScrollTrigger scrub timeline
+        const scrollTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top top",
+            end: "+=2600",
+            pin: true,
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        scrollTl.to(
+          frameSeq,
+          {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            onUpdate: () => {
+              renderFrame(Math.round(frameSeq.frame));
+            },
+          },
+          0
+        );
+
+        scrollTl.to(
+          ".text-reveal-content",
+          {
+            y: "-110%",
+            opacity: 0,
+            filter: "blur(14px)",
+            stagger: 0.04,
+            ease: "power1.inOut",
+          },
+          0.12
+        );
+
+        scrollTl.to(
+          ".hero-element",
+          {
+            y: -50,
+            opacity: 0,
+            filter: "blur(10px)",
+            stagger: 0.04,
+            ease: "power1.inOut",
+          },
+          0.12
+        );
+      }
+
+      // 2. Tech Architecture Reveal (Dobra 2)
+      const techHeader = gsap.utils.toArray(".tech-header-element");
+      const techBenefits = gsap.utils.toArray(".tech-benefit-item");
+
+      const techTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#tech-architecture",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      techTl
+        .fromTo(
+          techHeader,
+          { y: 40, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        )
+        .fromTo(
+          ".tech-card-visual",
+          { scale: 0.94, opacity: 0, filter: "blur(10px)" },
+          { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" },
+          "-=0.6"
+        )
+        .fromTo(
+          techBenefits,
+          { x: 30, opacity: 0, filter: "blur(6px)" },
+          { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.08, ease: "power3.out" },
+          "-=0.7"
+        );
+
+      // Progress bar sync
+      gsap.to("#tech-progress-bar", {
+        width: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#tech-architecture",
+          start: "top 50%",
+          end: "bottom 85%",
+          scrub: true,
+        },
+      });
+
+      // 3. Precision Experience Reveal (Dobra 3)
+      const expHeader = gsap.utils.toArray(".exp-header-element");
+      const expStats = gsap.utils.toArray(".exp-stat-card");
+
+      const expTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#precision-experience",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      expTl
+        .fromTo(
+          expHeader,
+          { y: 40, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "power3.out" }
+        )
+        .fromTo(
+          expStats,
+          { y: 30, opacity: 0, scale: 0.96 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.08, ease: "power3.out" },
+          "-=0.5"
+        );
+
+      // 4. Manifesto Reveal (Dobra 4)
+      const manifestoTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#manifesto-glow-dobra4",
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      manifestoTl.fromTo(
+        ".glow-manifesto-card",
+        { scale: 0.92, opacity: 0, filter: "blur(14px)" },
+        { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }
+      );
+
+      // 5. Flashlight hover cards
+      document.querySelectorAll(".flashlight-card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+
+      // 6. 3D Tilt for Hero
+      const videoContainer = document.querySelector(".video-container");
+      if (videoContainer) {
+        document.addEventListener("mousemove", (e) => {
+          if (window.scrollY > window.innerHeight * 0.5) return;
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+          gsap.to(videoContainer, {
+            rotationY: xAxis,
+            rotationX: yAxis,
+            ease: "power2.out",
+            duration: 1,
+          });
+        });
+
+        document.addEventListener("mouseleave", () => {
+          gsap.to(videoContainer, {
+            rotationY: 0,
+            rotationX: 0,
+            ease: "power2.out",
+            duration: 1.5,
+          });
+        });
+      }
+
+      // Initial trigger refresh
+      ScrollTrigger.refresh();
+    }
+
+    // Run setup when script executes and on DOM ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupAnimations);
+    } else {
+      setupAnimations();
+    }
+    window.addEventListener("load", () => {
+      if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+    });
+
+    // Stroke Simulator Interaction
+    const strokeSpecs = {
+      "0.05": { strokeWidth: 1.2, spec: "ARTOOLS PIGMENTUM 0.05mm - ULTRA ULTRA-FINO", density: "99.9%", useCase: "Aplicação: Pontilhismo de precisão extrema, hachuras densas e desenho cirúrgico." },
+      "0.1": { strokeWidth: 2.5, spec: "ARTOOLS PIGMENTUM 0.1mm - TRAÇO DE PRECISÃO", density: "99.8%", useCase: "Aplicação: Ilustração de Arquitetura, hachura milimétrica e escrita técnica." },
+      "0.3": { strokeWidth: 4.5, spec: "ARTOOLS PIGMENTUM 0.3mm - TRAÇO INTERMEDIÁRIO", density: "99.5%", useCase: "Aplicação: Caligrafia fluida, esboços de conceitos e escrita diária encorpada." },
+      "0.5": { strokeWidth: 6.5, spec: "ARTOOLS PIGMENTUM 0.5mm - LINHA EXECUTIVA", density: "99.2%", useCase: "Aplicação: Assinaturas de contratos, contornos marcantes e letras em negrito." },
+      "0.8": { strokeWidth: 9.0, spec: "ARTOOLS PIGMENTUM 0.8mm - DENSIDADE MÁXIMA", density: "99.0%", useCase: "Aplicação: Preenchimento de áreas, títulos expressivos e arte gráfica pesada." },
+    };
+
+    function setStrokeSize(size, btn) {
+      document.querySelectorAll(".stroke-btn").forEach((b) => {
+        b.classList.remove("active", "bg-white", "text-stone-950", "font-bold");
+        b.classList.add("text-stone-400");
+      });
+      btn.classList.add("active", "bg-white", "text-stone-950", "font-bold");
+      btn.classList.remove("text-stone-400");
+
+      const data = strokeSpecs[size];
+      if (data) {
+        const svgPath = document.getElementById("stroke-svg-path");
+        const specBadge = document.getElementById("stroke-spec-badge");
+        const densityTag = document.getElementById("stroke-density-tag");
+        const useCase = document.getElementById("stroke-use-case");
+
+        if (svgPath) svgPath.setAttribute("stroke-width", data.strokeWidth);
+        if (specBadge) specBadge.textContent = data.spec;
+        if (densityTag) densityTag.textContent = `Densidade Nanométrica: ${data.density}`;
+        if (useCase) useCase.textContent = data.useCase;
+      }
+    }
+
+    document.querySelectorAll(".stroke-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const size = btn.getAttribute("data-size");
+        if (size) setStrokeSize(size, btn);
+      });
+    });
+
+    // Stress Test Interaction
+    const stressData = {
+      water: { title: "Teste de Água:", desc: "Pigmentos de carbono fixam-se instantaneamente às fibras do papel. Sem manchas ou desbotamento mesmo sob chuva ou imersão direta." },
+      uv: { title: "Teste Solar & UV:", desc: "Resistência fotolítica absoluta. O traço mantém a saturação de preto absoluto inalterada por mais de 100 anos em exposição contínua." },
+      chemical: { title: "Teste com Solventes:", desc: "Fórmula à prova de álcool isopropílico, acetona e produtos de limpeza. Ideal para assinaturas de segurança e documentos históricos." },
+    };
+
+    function toggleStressTest(testKey, btn) {
+      document.querySelectorAll(".stress-btn").forEach((b) => {
+        b.classList.remove("active", "bg-stone-800/80", "border-stone-700");
+        b.classList.add("bg-stone-950/60", "border-stone-800");
+        const titleSpan = b.querySelector(".font-bold");
+        if (titleSpan) titleSpan.classList.replace("text-white", "text-stone-300");
+      });
+
+      btn.classList.add("active", "bg-stone-800/80", "border-stone-700");
+      btn.classList.remove("bg-stone-950/60", "border-stone-800");
+      const activeTitle = btn.querySelector(".font-bold");
+      if (activeTitle) activeTitle.classList.replace("text-stone-300", "text-white");
+
+      const info = stressData[testKey];
+      const descBox = document.getElementById("stress-desc-box");
+      if (info && descBox) {
+        descBox.innerHTML = `<span class="text-white font-bold block mb-0.5">${info.title}</span>${info.desc}`;
+      }
+    }
+
+    document.querySelectorAll(".stress-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const stress = btn.getAttribute("data-stress");
+        if (stress) toggleStressTest(stress, btn);
+      });
+    });
+
+    // Button Scroll actions
+    const heroBuyBtn = document.getElementById("hero-buy-btn");
+    if (heroBuyBtn) {
+      heroBuyBtn.addEventListener("click", () => {
+        window.lenis?.scrollTo("#manifesto-glow-dobra4");
+      });
+    }
+
+    const heroExploreBtn = document.getElementById("hero-explore-btn");
+    if (heroExploreBtn) {
+      heroExploreBtn.addEventListener("click", () => {
+        window.lenis?.scrollTo("#tech-architecture");
+      });
+    }
+
+    const sec3CtaBtn = document.getElementById("sec3-cta-btn");
+    if (sec3CtaBtn) {
+      sec3CtaBtn.addEventListener("click", () => {
+        window.lenis?.scrollTo("#manifesto-glow-dobra4");
+      });
+    }
+
+    const manifestoAccessBtn = document.getElementById("manifesto-access-btn");
+    if (manifestoAccessBtn) {
+      manifestoAccessBtn.addEventListener("click", () => {
+        window.lenis?.scrollTo("#hero-title");
+      });
+    }
+  </script>
 </Layout>

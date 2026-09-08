@@ -1,0 +1,29 @@
+---
+interface Props {
+  size: string;
+  active?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  size,
+  active = false,
+  class: className = "",
+  ...rest
+} = Astro.props;
+---
+
+<button
+  data-size={size}
+  class:list={[
+    "stroke-btn px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer",
+    active
+      ? "active bg-white text-stone-950 font-bold shadow-md"
+      : "text-stone-400 hover:text-white",
+    className,
+  ]}
+  {...rest}
+>
+  <slot>{size}</slot>
+</button>

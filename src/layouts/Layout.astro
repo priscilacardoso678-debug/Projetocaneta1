@@ -1,23 +1,440 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Precision Series - A caneta mais tecnológica do mundo",
+  description = "ARTOOLS Pigmentum 0.1 - Engenharia de precisão suíça fundida com materiais aeroespaciais. Redefinindo o ato de escrever.",
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html class="scroll-smooth font-sans" lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Iconify CDN -->
+    <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & Lenis Libraries (Loaded in Head so available everywhere) -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script is:inline src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <!-- Tailwind Config based on Design System -->
+    <script is:inline>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            colors: {
+              stone: {
+                50: "#fafaf9",
+                100: "#f5f5f4",
+                200: "#e7e5e4",
+                300: "#d6d3d1",
+                400: "#a8a29e",
+                500: "#78716c",
+                600: "#57534e",
+                700: "#44403c",
+                800: "#292524",
+                900: "#1c1917",
+                950: "#0c0a09",
+              },
+              accent: {
+                light: "#ffffff",
+                neutral: "#F0F0EB",
+                dark: "#1C1C1C",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="selection:bg-stone-900 selection:text-white bg-[#F0F0EB] text-[#1C1C1C] overflow-x-hidden antialiased">
+    <!-- Overlay Grain -->
+    <div class="grain-bg"></div>
+
+    <!-- Header Component -->
+    <Header />
+
+    <!-- Slot for Page Content -->
+    <slot />
+
+    <!-- Footer Component -->
+    <Footer />
+
+    <script is:inline>
+      // 1. Initialize Lenis Smooth Scrolling safely
+      if (typeof Lenis !== "undefined") {
+        window.lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: "vertical",
+          gestureDirection: "vertical",
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        // 2. Register GSAP ScrollTrigger with Lenis
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+          window.lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((time) => {
+            window.lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0, 0);
+        }
+      }
+
+      // 3. Bind Global Navigation Actions
+      document.addEventListener("DOMContentLoaded", () => {
+        const navCtaBtn = document.getElementById("nav-cta-btn");
+        if (navCtaBtn) {
+          navCtaBtn.addEventListener("click", () => {
+            const target = navCtaBtn.getAttribute("data-target") || "#manifesto-glow-dobra4";
+            window.lenis?.scrollTo(target);
+          });
+        }
+
+        const backToTopBtn = document.getElementById("back-to-top-btn");
+        if (backToTopBtn) {
+          backToTopBtn.addEventListener("click", () => {
+            window.lenis?.scrollTo(0);
+          });
+        }
+
+        // Refresh ScrollTrigger after fonts/DOM loaded
+        setTimeout(() => {
+          if (typeof ScrollTrigger !== "undefined") {
+            ScrollTrigger.refresh();
+          }
+        }, 300);
+      });
+    </script>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  /* Base Styles */
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: #f0f0eb;
+    color: #1c1c1c;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain Overlay */
+  .grain-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Ambient Mesh Glows */
+  .glow-mesh {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    mix-blend-mode: multiply;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Typography Stroke Effect */
+  .text-stroke {
+    -webkit-text-stroke: 1.5px #1c1c1c;
+    color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .text-stroke {
+      -webkit-text-stroke: 1px #1c1c1c;
+    }
+  }
+
+  /* Conic Beam Button (Dark) */
+  .btn-beam {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    padding: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-beam::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    z-index: -1;
+    background: conic-gradient(from 0deg, transparent 0% 320deg, #1c1917 360deg);
+    animation: spin 2.5s linear infinite;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-beam:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .btn-beam-content {
+    border-radius: inherit;
+    background-color: #1c1917;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Conic Beam Button (Light) */
+  .btn-beam-light {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    padding: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-beam-light::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    z-index: -1;
+    background: conic-gradient(from 0deg, transparent 0% 320deg, #ffffff 360deg);
+    animation: spin 2.5s linear infinite;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-beam-light:hover::before {
+    opacity: 1;
+  }
+
+  .btn-beam-light-content {
+    border-radius: inherit;
+    background-color: #ffffff;
+    color: #0c0a09;
+    transition: all 0.3s ease;
+  }
+
+  /* Shimmer Animation for Badges */
+  .shimmer-slide {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-slide::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 20%,
+      rgba(255, 255, 255, 0.6) 60%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer-anim 2.5s infinite;
+  }
+
+  @keyframes shimmer-anim {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Reveal Animations Setup */
+  .text-reveal-wrapper {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .text-reveal-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+    will-change: transform, opacity, filter;
+  }
+
+  .hero-element {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+    will-change: transform, opacity, filter;
+  }
+
+  /* 3D Video Container */
+  .video-container {
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    will-change: transform, box-shadow;
+  }
+
+  /* Grid Guidelines */
+  .grid-guide-line {
+    border-right: 1px solid rgba(28, 28, 28, 0.05);
+    height: 100%;
+  }
+
+  /* Flashlight Effect Card */
+  .flashlight-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+  }
+
+  .flashlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.85),
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .flashlight-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Marquee Animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+
+  /* Floating Ambient Glow Orbs */
+  @keyframes float-glow {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-25px) scale(1.08);
+    }
+  }
+  .float-mesh {
+    animation: float-glow 8s ease-in-out infinite;
+  }
+
+  /* Pulsing slow animation for card aura */
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.03);
+    }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  /* Blueprint Dot Grid Texture */
+  .bg-blueprint-dots {
+    background-image: radial-gradient(rgba(28, 28, 28, 0.12) 0.8px, transparent 0.8px);
+    background-size: 24px 24px;
+  }
+
+  .bg-blueprint-dots-dark {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 0.8px, transparent 0.8px);
+    background-size: 24px 24px;
+  }
+
+  /* Lenis Required CSS */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
 </style>

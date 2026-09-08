@@ -1,0 +1,706 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import { pens } from "../data/pens";
+---
+
+<Layout 
+  title="Catálogo Oficial de Canetas | ARTOOLS Precision Series" 
+  description="Explore o catálogo completo de instrumentos de desenho técnico e caligrafia ARTOOLS Pigmentum Series. 9 modelos com preços de lançamento e lote VIP."
+>
+  <main class="relative w-full pt-28 pb-32 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto min-h-screen">
+    
+    <!-- Top Breadcrumb & Back Navigation -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <nav class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-stone-500">
+        <a href="/" class="hover:text-stone-900 transition-colors flex items-center gap-1.5 group">
+          <iconify-icon icon="solar:arrow-left-linear" class="text-sm group-hover:-translate-x-1 transition-transform"></iconify-icon>
+          Início
+        </a>
+        <span class="text-stone-400">/</span>
+        <span class="text-stone-900 font-semibold">Catálogo Completo</span>
+      </nav>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 border border-stone-300/60 backdrop-blur-sm rounded-lg font-mono text-[11px] uppercase tracking-widest text-stone-600 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>9 Modelos Catalogados // Linha 2026</span>
+      </div>
+    </div>
+
+    <!-- Catalog Hero Banner -->
+    <header class="mb-14 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-stone-900 text-stone-100 rounded-lg font-mono text-[10px] md:text-xs uppercase tracking-widest shadow-md">
+        <iconify-icon icon="solar:box-minimalistic-bold" class="text-sm"></iconify-icon>
+        <span>Precision Engineering Lineup</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-stone-900 tracking-tight leading-[1.05]">
+        Instrumentos de <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-stone-900 via-stone-700 to-stone-500 bg-clip-text text-transparent">Precisão Absoluta</span>
+      </h1>
+
+      <p class="text-stone-600 font-mono text-sm md:text-base max-w-2xl leading-relaxed">
+        Do nanômetro à expressividade caligráfica. Cada caneta da série Pigmentum é uma obra-prima de engenharia de fluidos com condições especiais de reserva no Lote VIP.
+      </p>
+
+      <!-- Search & Filters Container -->
+      <div class="pt-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 border-t border-stone-300/80">
+        
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2" id="filter-container">
+          <button
+            type="button"
+            data-filter="all"
+            class="filter-btn active-filter px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-200 bg-stone-900 text-white shadow-sm font-semibold"
+          >
+            Todos (9)
+          </button>
+          <button
+            type="button"
+            data-filter="fine"
+            class="filter-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-200 bg-white/70 text-stone-700 hover:bg-white hover:text-stone-950 border border-stone-300/60"
+          >
+            Fine Liner (3)
+          </button>
+          <button
+            type="button"
+            data-filter="technical"
+            class="filter-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-200 bg-white/70 text-stone-700 hover:bg-white hover:text-stone-950 border border-stone-300/60"
+          >
+            Técnica & Traço (2)
+          </button>
+          <button
+            type="button"
+            data-filter="brush"
+            class="filter-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-200 bg-white/70 text-stone-700 hover:bg-white hover:text-stone-950 border border-stone-300/60"
+          >
+            Brush & Lettering (2)
+          </button>
+          <button
+            type="button"
+            data-filter="special"
+            class="filter-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-200 bg-white/70 text-stone-700 hover:bg-white hover:text-stone-950 border border-stone-300/60"
+          >
+            Edições Especiais (2)
+          </button>
+        </div>
+
+        <!-- Live Search Field -->
+        <div class="relative min-w-[280px] sm:w-80">
+          <iconify-icon icon="solar:magnifer-linear" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-base pointer-events-none"></iconify-icon>
+          <input
+            id="catalog-search"
+            type="text"
+            placeholder="Buscar por espessura, nome, preço..."
+            class="w-full pl-10 pr-9 py-2.5 bg-white/80 border border-stone-300/80 rounded-lg font-mono text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white transition-all shadow-sm"
+          />
+          <button
+            id="clear-search-btn"
+            type="button"
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 text-sm"
+            title="Limpar busca"
+          >
+            <iconify-icon icon="solar:close-circle-bold"></iconify-icon>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Results counter -->
+      <div class="flex items-center justify-between text-stone-500 font-mono text-[11px] pt-1">
+        <span id="results-count">Exibindo 9 de 9 instrumentos disponíveis</span>
+        <span class="hidden sm:inline">Preços especiais garantidos para inscritos no "Avise-me"</span>
+      </div>
+    </header>
+
+    <!-- 9 PRODUCTS GRID -->
+    <div 
+      id="pens-grid" 
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch"
+    >
+      {pens.map((pen) => (
+        <article
+          class="pen-card bg-white/85 backdrop-blur-md border border-stone-300/80 hover:border-stone-400/90 rounded-xl p-6 shadow-sm hover:shadow-xl hover:shadow-stone-950/5 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between group relative overflow-hidden"
+          data-category={pen.category}
+          data-name={pen.name.toLowerCase()}
+          data-tip={pen.tip.toLowerCase()}
+          data-price={pen.price.toLowerCase()}
+          data-specs={Object.values(pen.specs).join(" ").toLowerCase()}
+        >
+          <div>
+            <!-- Top Badges & Tip Identifier -->
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 font-mono text-[10px] uppercase font-bold text-stone-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-stone-900"></span>
+                {pen.badge}
+              </span>
+
+              <!-- Tip Size Pill -->
+              <div class="px-2.5 py-1 rounded-md bg-stone-900 text-white font-mono font-bold text-xs shadow-sm tracking-wider flex items-center gap-1">
+                <iconify-icon icon="solar:pen-new-square-bold" class="text-[11px] opacity-75"></iconify-icon>
+                <span>{pen.tip}</span>
+              </div>
+            </div>
+
+            <!-- Photorealistic Product Image Container (Clickable to PDP) -->
+            <a 
+              href={`/produto/${pen.id}`}
+              class="relative w-full h-52 sm:h-56 rounded-lg overflow-hidden mb-4 bg-stone-900 border border-stone-200/80 group-hover:border-stone-400 transition-all shadow-inner block"
+              title={`Ver detalhes técnicos de ${pen.name}`}
+            >
+              <img 
+                src={pen.image} 
+                alt={pen.name}
+                loading="lazy"
+                class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500 ease-out"
+              />
+
+              <!-- Gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-transparent to-stone-950/30 pointer-events-none"></div>
+
+              <!-- Top Image Badges -->
+              <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono text-white/90">
+                <span class="px-2 py-0.5 rounded bg-stone-900/85 backdrop-blur-sm border border-white/20 tracking-wider">
+                  Cod. {pen.codename}
+                </span>
+                <span class="inline-flex items-center gap-1 font-semibold bg-emerald-950/85 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded backdrop-blur-sm">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  {pen.status}
+                </span>
+              </div>
+
+              <!-- Bottom Floating Stroke Preview Bar over Photo -->
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 bg-stone-950/85 backdrop-blur-sm rounded-md p-2 border border-white/15 text-white">
+                <div class="flex items-center justify-between text-[9px] font-mono text-stone-300 mb-1">
+                  <span>Calibração do Traço</span>
+                  <span class="font-bold text-white tracking-wider">{pen.tip}</span>
+                </div>
+                <div class="w-full h-2 bg-stone-800 rounded-full flex items-center px-1.5 overflow-hidden">
+                  {pen.strokeType === "brush" ? (
+                    <div class="w-full h-[5px] bg-white rounded-full bg-gradient-to-r from-white via-stone-200 to-stone-400"></div>
+                  ) : pen.strokeType === "chisel" ? (
+                    <div class="w-full h-[6px] bg-white transform skew-x-12"></div>
+                  ) : (
+                    <div 
+                      class="w-full bg-white rounded-full transition-all"
+                      style={`height: ${pen.strokeWidth}px;`}
+                    ></div>
+                  )}
+                </div>
+              </div>
+            </a>
+
+            <!-- Title and Sub-details -->
+            <div class="space-y-1.5 mb-3">
+              <div class="font-mono text-[10px] uppercase tracking-widest text-stone-500 font-semibold">
+                {pen.categoryLabel}
+              </div>
+              <a href={`/produto/${pen.id}`} class="block group/title">
+                <h2 class="text-lg md:text-xl font-display font-bold text-stone-900 tracking-tight leading-snug group-hover/title:text-stone-600 transition-colors flex items-center justify-between gap-2">
+                  <span>{pen.name}</span>
+                  <iconify-icon icon="solar:arrow-right-up-linear" class="text-base text-stone-400 group-hover/title:text-stone-900 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-transform"></iconify-icon>
+                </h2>
+              </a>
+              <p class="text-stone-600 text-xs leading-relaxed font-sans line-clamp-2">
+                {pen.description}
+              </p>
+            </div>
+
+            <!-- Detailed Specifications Grid -->
+            <div class="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 mb-3.5 text-[11px] font-mono">
+              <div class="space-y-0.5">
+                <span class="text-stone-400 text-[9px] block uppercase">Ponta</span>
+                <span class="text-stone-800 font-medium block truncate" title={pen.specs.ponta}>
+                  {pen.specs.ponta}
+                </span>
+              </div>
+              <div class="space-y-0.5">
+                <span class="text-stone-400 text-[9px] block uppercase">Tinta</span>
+                <span class="text-stone-800 font-medium block truncate" title={pen.specs.tinta}>
+                  {pen.specs.tinta}
+                </span>
+              </div>
+              <div class="space-y-0.5">
+                <span class="text-stone-400 text-[9px] block uppercase">Secagem</span>
+                <span class="text-stone-800 font-medium block truncate" title={pen.specs.secagem}>
+                  {pen.specs.secagem}
+                </span>
+              </div>
+              <div class="space-y-0.5">
+                <span class="text-stone-400 text-[9px] block uppercase">Corpo</span>
+                <span class="text-stone-800 font-medium block truncate" title={pen.specs.corpo}>
+                  {pen.specs.corpo}
+                </span>
+              </div>
+            </div>
+
+            <!-- Price & Payment Conditions -->
+            <div class="p-3 rounded-lg bg-stone-50 border border-stone-200/90 mb-4 flex items-center justify-between">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-mono text-stone-400 line-through">{pen.price}</span>
+                  <span class="text-lg font-display font-bold text-stone-900 tracking-tight">{pen.vipPrice}</span>
+                  <span class="text-[9px] font-mono font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded">VIP</span>
+                </div>
+                <span class="text-[10px] font-mono text-stone-500 block">{pen.installments}</span>
+              </div>
+              <span class="text-[10px] font-mono text-stone-500 text-right">
+                {pen.launchQuarter}
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Card Bottom Action: Avise-me Button + Ver Detalhes -->
+          <div class="pt-2 border-t border-stone-200/70 mt-auto flex flex-col gap-2">
+            <div class="flex items-center justify-between text-[11px] font-mono text-stone-500">
+              <a href={`/produto/${pen.id}`} class="hover:text-stone-900 underline underline-offset-2 transition-colors flex items-center gap-1 font-semibold">
+                <span>Ver ficha completa</span>
+                <iconify-icon icon="solar:arrow-right-linear" class="text-xs"></iconify-icon>
+              </a>
+              <span class="font-bold text-stone-800">{pen.status}</span>
+            </div>
+
+            <!-- Avise-me Button using the Button component -->
+            <Button
+              variant="beam"
+              size="sm"
+              icon="solar:bell-bold"
+              iconPosition="left"
+              rounded="rounded-lg"
+              class="w-full notify-trigger-btn"
+              data-pen-id={pen.id}
+              data-pen-name={pen.name}
+              data-pen-tip={pen.tip}
+              data-pen-badge={pen.badge}
+              data-pen-image={pen.image}
+              data-pen-vip-price={pen.vipPrice}
+            >
+              Avise-me quando chegar
+            </Button>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty State for Search / Filter -->
+    <div id="no-results-box" class="hidden text-center py-16 px-6 rounded-xl bg-white/60 border border-stone-200/80 my-8">
+      <div class="w-12 h-12 rounded-xl bg-stone-100 flex items-center justify-center mx-auto mb-3 text-stone-400">
+        <iconify-icon icon="solar:magnifer-broken" class="text-2xl"></iconify-icon>
+      </div>
+      <h3 class="font-display font-bold text-lg text-stone-900 mb-1">Nenhuma caneta encontrada</h3>
+      <p class="font-mono text-xs text-stone-500 max-w-md mx-auto mb-5">
+        Não encontramos nenhum instrumento correspondente aos filtros atuais.
+      </p>
+      <button
+        id="reset-filter-btn"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-stone-900 text-white font-mono text-xs uppercase tracking-wider hover:bg-stone-800 transition-colors shadow-sm"
+      >
+        <iconify-icon icon="solar:refresh-linear"></iconify-icon>
+        Restaurar Catálogo
+      </button>
+    </div>
+
+    <!-- Bottom VIP Guarantee Banner -->
+    <section class="mt-20 p-8 md:p-10 rounded-xl bg-[#1C1C1C] text-white relative overflow-hidden shadow-lg border border-stone-800">
+      <div class="relative z-10 max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/10 border border-white/15 font-mono text-[10px] uppercase tracking-widest text-stone-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Lista VIP de Lançamento
+        </div>
+
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">
+          Prioridade de lote com até 25% de desconto no lançamento
+        </h2>
+
+        <p class="font-mono text-xs text-stone-400 leading-relaxed max-w-2xl">
+          Os inscritos no botão "Avise-me" recebem acesso antecipado 24 horas antes do lançamento oficial ao público geral com valor especial VIP.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- INTERACTIVE "AVISE-ME" MODAL (STRICTLY HIDDEN BY DEFAULT) -->
+  <div 
+    id="notify-modal" 
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-hidden="true"
+  >
+    <div 
+      id="modal-card" 
+      class="w-full max-w-md bg-white rounded-xl p-6 shadow-2xl border border-stone-200 transform scale-95 transition-transform duration-200 relative overflow-hidden"
+    >
+      <!-- Close Button -->
+      <button 
+        id="modal-close-btn" 
+        type="button" 
+        class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+        aria-label="Fechar modal"
+      >
+        <iconify-icon icon="solar:close-circle-bold" class="text-lg"></iconify-icon>
+      </button>
+
+      <!-- Form View -->
+      <div id="modal-form-view" class="space-y-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 rounded-md font-mono text-[10px] uppercase tracking-widest text-stone-700 mb-2">
+            <iconify-icon icon="solar:bell-bold" class="text-xs"></iconify-icon>
+            Alerta de Disponibilidade VIP
+          </div>
+
+          <h3 id="modal-title" class="text-xl font-display font-bold text-stone-900 tracking-tight">
+            Avise-me quando disponível
+          </h3>
+          
+          <div class="mt-2.5 p-2.5 bg-[#F0F0EB] rounded-lg border border-stone-300/70 flex items-center gap-3">
+            <img 
+              id="modal-selected-img" 
+              src="/assets/pens/pen_010.jpg" 
+              alt="Caneta Selecionada" 
+              class="w-12 h-12 rounded-md object-cover border border-stone-300 flex-shrink-0"
+            />
+            <div class="flex-1 min-w-0">
+              <strong id="modal-selected-pen" class="text-xs font-display font-bold text-stone-900 block truncate">
+                Pigmentum 0.10 Master Tech
+              </strong>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span id="modal-selected-tip" class="font-mono text-[10px] text-stone-500">
+                  0.10 mm
+                </span>
+                <span class="text-stone-300">•</span>
+                <span id="modal-selected-price" class="font-mono text-[10px] font-bold text-stone-900">
+                  R$ 179,00 (VIP)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="notify-form" class="space-y-3">
+          <div>
+            <label for="user-name" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              Nome
+            </label>
+            <input 
+              type="text" 
+              id="user-name" 
+              required
+              placeholder="Seu nome"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="user-email" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              E-mail <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="user-email" 
+              required
+              placeholder="seu@email.com"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="user-phone" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              WhatsApp / Celular <span class="text-stone-400">(Opcional)</span>
+            </label>
+            <input 
+              type="tel" 
+              id="user-phone" 
+              placeholder="(11) 99999-9999"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="submit"
+              id="modal-submit-btn"
+              class="w-full py-2.5 px-4 rounded-lg bg-stone-900 hover:bg-stone-800 text-white font-mono text-xs uppercase font-bold tracking-wider transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <iconify-icon icon="solar:check-circle-bold" class="text-sm"></iconify-icon>
+              <span>Confirmar Inscrição</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success View -->
+      <div id="modal-success-view" class="hidden text-center py-4 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <iconify-icon icon="solar:check-circle-bold" class="text-2xl"></iconify-icon>
+        </div>
+
+        <h3 class="text-lg font-display font-bold text-stone-900 tracking-tight">
+          Inscrição Confirmada!
+        </h3>
+
+        <p class="font-mono text-xs text-stone-600 max-w-xs mx-auto leading-relaxed">
+          Você foi adicionado à lista VIP de <strong id="success-pen-name" class="text-stone-900"></strong>.
+        </p>
+
+        <div class="pt-2">
+          <button
+            id="modal-done-btn"
+            type="button"
+            class="px-5 py-2 rounded-lg bg-stone-900 text-white font-mono text-xs uppercase font-bold tracking-wider hover:bg-stone-800 transition-all shadow-sm cursor-pointer"
+          >
+            Continuar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div 
+    id="toast-notification" 
+    class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-stone-900 text-white px-4 py-3 rounded-lg shadow-xl flex items-center gap-2.5 border border-stone-700 font-mono text-xs max-w-sm"
+  >
+    <iconify-icon icon="solar:bell-bing-bold" class="text-emerald-400 text-base"></iconify-icon>
+    <div id="toast-message">Alerta registrado com sucesso!</div>
+  </div>
+</Layout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. FILTER FUNCTIONALITY
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const penCards = document.querySelectorAll(".pen-card");
+    const noResultsBox = document.getElementById("no-results-box");
+    const resultsCount = document.getElementById("results-count");
+    const searchInput = document.getElementById("catalog-search");
+    const clearSearchBtn = document.getElementById("clear-search-btn");
+    const resetFilterBtn = document.getElementById("reset-filter-btn");
+
+    let activeFilter = "all";
+    let searchQuery = "";
+
+    function updateCardVisibility() {
+      let visibleCount = 0;
+
+      penCards.forEach((card) => {
+        const cardCategory = card.getAttribute("data-category");
+        const cardName = card.getAttribute("data-name") || "";
+        const cardTip = card.getAttribute("data-tip") || "";
+        const cardPrice = card.getAttribute("data-price") || "";
+        const cardSpecs = card.getAttribute("data-specs") || "";
+
+        const matchesCategory = activeFilter === "all" || cardCategory === activeFilter;
+        const matchesSearch = 
+          searchQuery === "" || 
+          cardName.includes(searchQuery) || 
+          cardTip.includes(searchQuery) || 
+          cardPrice.includes(searchQuery) ||
+          cardSpecs.includes(searchQuery);
+
+        if (matchesCategory && matchesSearch) {
+          card.classList.remove("hidden");
+          visibleCount++;
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      if (resultsCount) {
+        resultsCount.textContent = `Exibindo ${visibleCount} de ${penCards.length} instrumentos disponíveis`;
+      }
+
+      if (noResultsBox) {
+        if (visibleCount === 0) {
+          noResultsBox.classList.remove("hidden");
+        } else {
+          noResultsBox.classList.add("hidden");
+        }
+      }
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => {
+          b.classList.remove("active-filter", "bg-stone-900", "text-white", "font-semibold");
+          b.classList.add("bg-white/70", "text-stone-700", "border", "border-stone-300/60");
+        });
+
+        btn.classList.add("active-filter", "bg-stone-900", "text-white", "font-semibold");
+        btn.classList.remove("bg-white/70", "text-stone-700", "border-stone-300/60");
+
+        activeFilter = btn.getAttribute("data-filter") || "all";
+        updateCardVisibility();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        if (clearSearchBtn) {
+          if (searchQuery.length > 0) {
+            clearSearchBtn.classList.remove("hidden");
+          } else {
+            clearSearchBtn.classList.add("hidden");
+          }
+        }
+        updateCardVisibility();
+      });
+    }
+
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener("click", () => {
+        if (searchInput) {
+          searchInput.value = "";
+          searchQuery = "";
+          clearSearchBtn.classList.add("hidden");
+          updateCardVisibility();
+          searchInput.focus();
+        }
+      });
+    }
+
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener("click", () => {
+        if (searchInput) {
+          searchInput.value = "";
+          searchQuery = "";
+        }
+        if (clearSearchBtn) clearSearchBtn.classList.add("hidden");
+
+        const allBtn = document.querySelector('[data-filter="all"]');
+        if (allBtn) allBtn.click();
+      });
+    }
+
+    // 2. MODAL LOGIC (ONLY OPENS ON CLICK)
+    const modal = document.getElementById("notify-modal");
+    const modalCard = document.getElementById("modal-card");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    const modalFormView = document.getElementById("modal-form-view");
+    const modalSuccessView = document.getElementById("modal-success-view");
+    const modalForm = document.getElementById("notify-form");
+    const modalDoneBtn = document.getElementById("modal-done-btn");
+    const modalSelectedPen = document.getElementById("modal-selected-pen");
+    const modalSelectedTip = document.getElementById("modal-selected-tip");
+    const modalSelectedPrice = document.getElementById("modal-selected-price");
+    const modalSelectedImg = document.getElementById("modal-selected-img");
+    const successPenName = document.getElementById("success-pen-name");
+    const toast = document.getElementById("toast-notification");
+    const toastMessage = document.getElementById("toast-message");
+
+    let currentSelectedPen = "";
+
+    function openModal(penName, penTip, penImg, penPrice) {
+      currentSelectedPen = penName;
+      if (modalSelectedPen) modalSelectedPen.textContent = penName;
+      if (modalSelectedTip) modalSelectedTip.textContent = penTip;
+      if (modalSelectedPrice && penPrice) modalSelectedPrice.textContent = `${penPrice} (VIP)`;
+      if (modalSelectedImg && penImg) modalSelectedImg.src = penImg;
+      if (successPenName) successPenName.textContent = penName;
+
+      if (modalFormView) modalFormView.classList.remove("hidden");
+      if (modalSuccessView) modalSuccessView.classList.add("hidden");
+      if (modalForm) modalForm.reset();
+
+      if (modal) {
+        modal.classList.remove("hidden");
+        void modal.offsetWidth;
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modal.classList.add("opacity-100", "pointer-events-auto");
+        modal.setAttribute("aria-hidden", "false");
+      }
+      if (modalCard) {
+        modalCard.classList.remove("scale-95");
+        modalCard.classList.add("scale-100");
+      }
+    }
+
+    function closeModal() {
+      if (modal) {
+        modal.classList.remove("opacity-100", "pointer-events-auto");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modal.setAttribute("aria-hidden", "true");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 200);
+      }
+      if (modalCard) {
+        modalCard.classList.remove("scale-100");
+        modalCard.classList.add("scale-95");
+      }
+    }
+
+    function showToast(msg) {
+      if (toast && toastMessage) {
+        toastMessage.textContent = msg;
+        toast.classList.remove("translate-y-20", "opacity-0", "pointer-events-none");
+        toast.classList.add("translate-y-0", "opacity-100");
+
+        setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-20", "opacity-0", "pointer-events-none");
+        }, 3500);
+      }
+    }
+
+    const notifyButtons = document.querySelectorAll(".notify-trigger-btn");
+    notifyButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const penName = btn.getAttribute("data-pen-name") || "ARTOOLS Pigmentum";
+        const penTip = btn.getAttribute("data-pen-tip") || "Precisão";
+        const penImg = btn.getAttribute("data-pen-image") || "/assets/pens/pen_010.jpg";
+        const penPrice = btn.getAttribute("data-pen-vip-price") || "R$ 179,00";
+        openModal(penName, penTip, penImg, penPrice);
+      });
+    });
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeModal);
+    if (modalDoneBtn) modalDoneBtn.addEventListener("click", closeModal);
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
+        closeModal();
+      }
+    });
+
+    if (modalForm) {
+      modalForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById("modal-submit-btn");
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `
+            <iconify-icon icon="solar:spinner-linear" class="text-sm animate-spin"></iconify-icon>
+            <span>Confirmando...</span>
+          `;
+        }
+
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `
+              <iconify-icon icon="solar:check-circle-bold" class="text-sm"></iconify-icon>
+              <span>Confirmar Inscrição</span>
+            `;
+          }
+          if (modalFormView) modalFormView.classList.add("hidden");
+          if (modalSuccessView) modalSuccessView.classList.remove("hidden");
+          showToast(`Inscrição confirmada para ${currentSelectedPen}!`);
+        }, 500);
+      });
+    }
+  });
+</script>

@@ -1,0 +1,806 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import { pens } from "../data/pens";
+
+// Default selected pen for Page 3 is Flagship 0.10 Master Tech
+const defaultPen = pens.find((p) => p.id === "pen-010") || pens[0];
+---
+
+<Layout
+  title="Especificação Técnica & Preços | ARTOOLS Precision Series"
+  description="Ficha técnica detalhada, calibração, preços e condições de reserva dos instrumentos de precisão ARTOOLS."
+>
+  <main class="relative w-full pt-28 pb-32 px-6 md:px-12 lg:px-20 max-w-[1440px] mx-auto min-h-screen">
+    
+    <!-- Ambient Background Grid Lines (Matching index.astro pattern) -->
+    <div class="absolute inset-0 pointer-events-none grid grid-cols-12 z-0 h-full w-full opacity-30">
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="border-r border-stone-300/50 col-span-1"></div>
+      <div class="col-span-1"></div>
+    </div>
+
+    <div class="relative z-10">
+      
+      <!-- Top Breadcrumb & Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-10 pb-4 border-b border-stone-300/70">
+        <nav class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-stone-500">
+          <a href="/" class="hover:text-stone-900 transition-colors flex items-center gap-1.5 group">
+            <iconify-icon icon="solar:arrow-left-linear" class="text-sm group-hover:-translate-x-1 transition-transform"></iconify-icon>
+            01 // Início
+          </a>
+          <span class="text-stone-300">/</span>
+          <a href="/pagina-2" class="hover:text-stone-900 transition-colors">
+            02 // Catálogo
+          </a>
+          <span class="text-stone-300">/</span>
+          <span id="breadcrumb-pen-name" class="text-stone-900 font-semibold">{defaultPen.name}</span>
+        </nav>
+
+        <a
+          href="/pagina-2"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/70 hover:bg-white border border-stone-300/80 rounded-lg font-mono text-xs uppercase tracking-wider text-stone-700 hover:text-stone-950 transition-all shadow-sm"
+        >
+          <iconify-icon icon="solar:list-linear" class="text-sm"></iconify-icon>
+          <span>Catálogo Geral (9 Modelos)</span>
+        </a>
+      </div>
+
+      <!-- Minimalist Pen Model Selector Tabs -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-3">
+          <span class="font-mono text-[11px] uppercase tracking-widest text-stone-500 font-semibold">
+            Selecione o Instrumento:
+          </span>
+          <span id="selected-tip-badge" class="font-mono text-xs text-stone-900 font-bold">
+            Modelo: {defaultPen.tip} ({defaultPen.categoryLabel})
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="pen-selector-tabs">
+          {pens.map((p) => (
+            <button
+              type="button"
+              data-pen-id={p.id}
+              class={`pen-select-tab px-3.5 py-2 rounded-lg font-mono text-xs transition-all duration-200 flex items-center gap-2 cursor-pointer flex-shrink-0 ${
+                p.id === defaultPen.id
+                  ? "bg-stone-900 text-white font-bold shadow-sm active-tab"
+                  : "bg-white/70 text-stone-600 hover:bg-white hover:text-stone-900 border border-stone-300/70"
+              }`}
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>{p.tip}</span>
+              <span class="text-[10px] opacity-60 font-normal">
+                {p.name.replace("Pigmentum ", "")}
+              </span>
+              <span class="text-[10px] font-bold opacity-90 pl-1 border-l border-stone-400/40">
+                {p.vipPrice}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- MAIN 2-COLUMN PRODUCT SPECIFICATION LAYOUT -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-20">
+        
+        <!-- LEFT COLUMN: Product Visual Studio Frame & Live Canvas -->
+        <div class="lg:col-span-6 space-y-6">
+          
+          <!-- Image Box with Minimal Frame -->
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-stone-900 border border-stone-300/80 shadow-sm group">
+            <img 
+              id="main-product-img"
+              src={defaultPen.image} 
+              alt={defaultPen.name} 
+              class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500 ease-out"
+            />
+
+            <!-- Subtle Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-stone-950/20 pointer-events-none"></div>
+
+            <!-- Top Corner Badges -->
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-white/90">
+              <span id="badge-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-900/90 border border-white/20 backdrop-blur-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-stone-100"></span>
+                <span id="badge-text">{defaultPen.badge}</span>
+              </span>
+
+              <span id="status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950/90 text-emerald-300 border border-emerald-500/30 font-semibold backdrop-blur-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="status-text">{defaultPen.status}</span>
+              </span>
+            </div>
+
+            <!-- Bottom Floating Spec Overlay -->
+            <div class="absolute bottom-3 left-3 right-3 bg-stone-950/85 backdrop-blur-md rounded-lg p-3 border border-white/10 text-white flex items-center justify-between">
+              <div>
+                <span class="text-[9px] font-mono text-stone-400 uppercase tracking-widest block">Espessura Nominal</span>
+                <span id="hero-tip-text" class="text-base font-display font-bold text-white">{defaultPen.tip}</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] font-mono text-stone-400 uppercase tracking-widest block">Código do Modelo</span>
+                <span id="hero-codename" class="font-mono text-xs text-stone-200 font-bold">{defaultPen.codename}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Minimalist Interactive Stroke Tester -->
+          <div class="bg-white/70 backdrop-blur-sm border border-stone-300/80 rounded-xl p-4 shadow-sm space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 font-mono text-xs font-semibold text-stone-900 uppercase tracking-wider">
+                <iconify-icon icon="solar:pen-bold" class="text-sm text-stone-700"></iconify-icon>
+                <span>Prancheta de Teste de Traço ({defaultPen.tip})</span>
+              </div>
+              <button
+                id="clear-canvas-btn"
+                type="button"
+                class="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-600 font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                Limpar
+              </button>
+            </div>
+
+            <div class="relative w-full h-28 bg-[#FAFAF8] rounded-lg border border-stone-300/70 overflow-hidden cursor-crosshair">
+              <canvas id="stroke-test-canvas" class="w-full h-full block"></canvas>
+              <div id="canvas-hint" class="absolute inset-0 flex items-center justify-center pointer-events-none font-mono text-[11px] text-stone-400">
+                ✍️ Clique e desenhe aqui para testar o traço {defaultPen.tip}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Minimalist Product Info, Prices & CTA -->
+        <div class="lg:col-span-6 space-y-6">
+          
+          <!-- Header Area -->
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-white/80 border border-stone-300/70 rounded-md font-mono text-[10px] uppercase tracking-widest text-stone-600">
+              <span class="w-1.5 h-1.5 rounded-full bg-stone-900"></span>
+              <span id="category-label">{defaultPen.categoryLabel}</span> // <span id="category-codename">{defaultPen.codename}</span>
+            </div>
+
+            <h1 id="pen-title" class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-stone-950 tracking-tight leading-tight">
+              {defaultPen.name}
+            </h1>
+
+            <p id="pen-tagline" class="text-stone-700 font-mono text-xs md:text-sm leading-relaxed border-l-2 border-stone-900 pl-3">
+              {defaultPen.tagline}
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div class="space-y-3 text-stone-600 text-xs md:text-sm leading-relaxed font-sans">
+            <p id="pen-desc">{defaultPen.description}</p>
+            <p id="pen-story" class="font-mono text-[11px] text-stone-500 leading-relaxed bg-[#F6F6F2] p-3.5 rounded-lg border border-stone-200/80">
+              {defaultPen.detailedStory}
+            </p>
+          </div>
+
+          <!-- Technical Highlights -->
+          <div class="space-y-2 pt-1">
+            <h3 class="font-mono text-[11px] uppercase tracking-widest text-stone-800 font-bold">
+              Características Principais
+            </h3>
+            <ul id="features-list" class="space-y-1.5">
+              {defaultPen.features.map((feat) => (
+                <li class="flex items-start gap-2 text-xs text-stone-700 font-sans">
+                  <iconify-icon icon="solar:check-circle-bold" class="text-stone-900 text-sm flex-shrink-0 mt-0.5"></iconify-icon>
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Action Box with Price & Avise-me Button -->
+          <div class="p-5 rounded-xl bg-white/90 border border-stone-300/80 shadow-sm space-y-4">
+            
+            <!-- Price Display Area -->
+            <div class="flex items-center justify-between border-b border-stone-200/80 pb-3">
+              <div>
+                <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Valor Estimado</span>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                  <span id="pen-original-price" class="text-xs font-mono line-through text-stone-400">{defaultPen.price}</span>
+                  <span id="pen-vip-price" class="text-2xl font-display font-bold text-stone-950">{defaultPen.vipPrice}</span>
+                  <span class="text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-200/60">
+                    Lote VIP (-20%)
+                  </span>
+                </div>
+                <span id="pen-installments" class="text-[11px] font-mono text-stone-500 block mt-0.5">{defaultPen.installments}</span>
+              </div>
+
+              <div class="text-right">
+                <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Fila de Espera</span>
+                <span class="inline-flex items-center gap-1 font-mono text-xs font-semibold text-emerald-600 mt-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span id="vip-slots">{defaultPen.vipSlotsRemaining} vagas</span>
+                </span>
+                <span id="launch-quarter" class="text-[10px] font-mono text-stone-400 block mt-0.5">{defaultPen.launchQuarter}</span>
+              </div>
+            </div>
+
+            <!-- Avise-me CTA Button (Clean and Minimal) -->
+            <Button
+              id="pdp-notify-btn"
+              variant="beam"
+              size="md"
+              icon="solar:bell-bold"
+              iconPosition="left"
+              rounded="rounded-lg"
+              class="w-full text-center notify-pdp-trigger"
+            >
+              Avise-me quando chegar
+            </Button>
+
+            <p class="font-mono text-[10px] text-stone-500 text-center">
+              Acesso exclusivo 24 horas antes do lançamento oficial com desconto VIP garantido.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- TECHNICAL SPECIFICATIONS GRID (CLEAN & SHARP) -->
+      <section class="mb-20 p-6 md:p-8 rounded-xl bg-white/70 border border-stone-300/80 shadow-sm space-y-6">
+        
+        <div class="flex items-center justify-between border-b border-stone-200/80 pb-4">
+          <div>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-stone-500 font-bold block mb-0.5">
+              Telemetria & Especificações
+            </span>
+            <h2 class="text-xl md:text-2xl font-display font-bold text-stone-900 tracking-tight">
+              Ficha Técnica
+            </h2>
+          </div>
+
+          <span class="font-mono text-xs text-stone-600 bg-stone-100 px-2.5 py-1 rounded-md">
+            ISO 14145-2
+          </span>
+        </div>
+
+        <!-- Specs Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Ponta</span>
+            <strong id="spec-ponta" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.ponta}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Tinta</span>
+            <strong id="spec-tinta" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.tinta}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Secagem</span>
+            <strong id="spec-secagem" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.secagem}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Corpo</span>
+            <strong id="spec-corpo" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.corpo}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Peso</span>
+            <strong id="spec-peso" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.peso}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Comprimento</span>
+            <strong id="spec-comprimento" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.comprimento}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Reservatório</span>
+            <strong id="spec-capacidade" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.capacidade}</strong>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-[#F6F6F2] border border-stone-200/80 space-y-0.5">
+            <span class="font-mono text-[10px] text-stone-400 uppercase tracking-wider block">Resistência</span>
+            <strong id="spec-resistencia" class="font-sans text-stone-900 text-xs block font-semibold">{defaultPen.specs.resistencia}</strong>
+          </div>
+        </div>
+
+        <!-- Box Contents -->
+        <div class="pt-2 border-t border-stone-200/80">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-stone-500 font-bold block mb-3">
+            Conteúdo da Caixa
+          </span>
+          <div id="box-contents-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            {defaultPen.boxContents.map((item, idx) => (
+              <div class="flex items-center gap-2.5 p-3 rounded-lg bg-white border border-stone-200 text-xs font-mono text-stone-700">
+                <span class="w-5 h-5 rounded bg-stone-900 text-white flex items-center justify-center font-bold text-[10px]">
+                  0{idx + 1}
+                </span>
+                <span class="truncate">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL: STRICTLY HIDDEN UNTIL USER CLICKS "AVISE-ME" (NO AUTO-OPEN) -->
+  <div 
+    id="notify-modal" 
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+  >
+    <div 
+      id="modal-card" 
+      class="w-full max-w-md bg-white rounded-xl p-6 shadow-2xl border border-stone-200 transform scale-95 transition-transform duration-200 relative overflow-hidden"
+    >
+      <button 
+        id="modal-close-btn" 
+        type="button" 
+        class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+        aria-label="Fechar"
+      >
+        <iconify-icon icon="solar:close-circle-bold" class="text-lg"></iconify-icon>
+      </button>
+
+      <div id="modal-form-view" class="space-y-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 rounded-md font-mono text-[10px] uppercase tracking-widest text-stone-700 mb-2">
+            <iconify-icon icon="solar:bell-bold" class="text-xs"></iconify-icon>
+            Alerta de Disponibilidade VIP
+          </div>
+
+          <h3 class="text-xl font-display font-bold text-stone-900 tracking-tight">
+            Avise-me quando chegar
+          </h3>
+          
+          <div class="mt-2.5 p-2.5 bg-[#F0F0EB] rounded-lg border border-stone-300/70 flex items-center gap-3">
+            <img 
+              id="modal-pen-img"
+              src={defaultPen.image} 
+              alt={defaultPen.name} 
+              class="w-12 h-12 rounded-md object-cover border border-stone-300 flex-shrink-0"
+            />
+            <div class="flex-1 min-w-0">
+              <strong id="modal-pen-name" class="text-xs font-display font-bold text-stone-900 block truncate">
+                {defaultPen.name}
+              </strong>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span id="modal-pen-tip" class="font-mono text-[10px] text-stone-500">
+                  Ponta: {defaultPen.tip} ({defaultPen.codename})
+                </span>
+                <span class="text-stone-300">•</span>
+                <span id="modal-pen-price" class="font-mono text-[10px] font-bold text-stone-900">
+                  {defaultPen.vipPrice} (VIP)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="notify-form" class="space-y-3">
+          <div>
+            <label for="user-name" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              Nome
+            </label>
+            <input 
+              type="text" 
+              id="user-name" 
+              required
+              placeholder="Seu nome"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="user-email" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              E-mail <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="user-email" 
+              required
+              placeholder="seu@email.com"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div>
+            <label for="user-phone" class="block font-mono text-[11px] uppercase tracking-wider text-stone-700 mb-1">
+              WhatsApp / Celular <span class="text-stone-400">(Opcional)</span>
+            </label>
+            <input 
+              type="tel" 
+              id="user-phone" 
+              placeholder="(11) 99999-9999"
+              class="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-900 focus:bg-white text-xs font-sans text-stone-900 transition-all"
+            />
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="submit"
+              id="modal-submit-btn"
+              class="w-full py-2.5 px-4 rounded-lg bg-stone-900 hover:bg-stone-800 text-white font-mono text-xs uppercase font-bold tracking-wider transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <iconify-icon icon="solar:check-circle-bold" class="text-sm"></iconify-icon>
+              <span>Confirmar Inscrição</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success View -->
+      <div id="modal-success-view" class="hidden text-center py-4 space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+          <iconify-icon icon="solar:check-circle-bold" class="text-2xl"></iconify-icon>
+        </div>
+
+        <h3 class="text-lg font-display font-bold text-stone-900 tracking-tight">
+          Inscrição Confirmada
+        </h3>
+
+        <p class="font-mono text-xs text-stone-600 max-w-xs mx-auto leading-relaxed">
+          Você receberá o aviso de lançamento prioritário de <strong id="modal-success-pen-name"></strong> por e-mail com desconto VIP garantido.
+        </p>
+
+        <div class="pt-2">
+          <button
+            id="modal-done-btn"
+            type="button"
+            class="px-5 py-2 rounded-lg bg-stone-900 text-white font-mono text-xs uppercase font-bold tracking-wider hover:bg-stone-800 transition-all cursor-pointer"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div 
+    id="toast-notification" 
+    class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-stone-900 text-white px-4 py-3 rounded-lg shadow-xl flex items-center gap-2.5 border border-stone-700 font-mono text-xs max-w-sm"
+  >
+    <iconify-icon icon="solar:bell-bing-bold" class="text-emerald-400 text-base"></iconify-icon>
+    <div id="toast-message">Alerta registrado com sucesso!</div>
+  </div>
+</Layout>
+
+<script is:inline define:vars={{ allPens: pens, initialPen: defaultPen }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    let currentPen = initialPen;
+
+    // 1. CANVAS DRAWING
+    const canvas = document.getElementById("stroke-test-canvas");
+    const clearBtn = document.getElementById("clear-canvas-btn");
+    const hint = document.getElementById("canvas-hint");
+    let ctx = null;
+
+    if (canvas) {
+      ctx = canvas.getContext("2d");
+      
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = "#1C1917";
+        ctx.lineWidth = Math.max(1, currentPen.strokeWidth);
+      }
+
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top,
+        };
+      }
+
+      function startDraw(e) {
+        isDrawing = true;
+        const pos = getPos(e);
+        lastX = pos.x;
+        lastY = pos.y;
+        if (hint) hint.classList.add("hidden");
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const pos = getPos(e);
+
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+
+        lastX = pos.x;
+        lastY = pos.y;
+      }
+
+      function stopDraw() {
+        isDrawing = false;
+      }
+
+      canvas.addEventListener("mousedown", startDraw);
+      canvas.addEventListener("mousemove", draw);
+      window.addEventListener("mouseup", stopDraw);
+
+      canvas.addEventListener("touchstart", startDraw, { passive: false });
+      canvas.addEventListener("touchmove", draw, { passive: false });
+      window.addEventListener("touchend", stopDraw);
+
+      if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if (hint) hint.classList.remove("hidden");
+        });
+      }
+    }
+
+    // 2. MODEL SWITCHER
+    const tabButtons = document.querySelectorAll(".pen-select-tab");
+    
+    function switchPen(penId) {
+      const selected = allPens.find((p) => p.id === penId);
+      if (!selected) return;
+      currentPen = selected;
+
+      tabButtons.forEach((btn) => {
+        if (btn.getAttribute("data-pen-id") === penId) {
+          btn.classList.add("bg-stone-900", "text-white", "font-bold", "shadow-sm", "active-tab");
+          btn.classList.remove("bg-white/70", "text-stone-600", "border", "border-stone-300/70");
+        } else {
+          btn.classList.remove("bg-stone-900", "text-white", "font-bold", "shadow-sm", "active-tab");
+          btn.classList.add("bg-white/70", "text-stone-600", "border", "border-stone-300/70");
+        }
+      });
+
+      const mainImg = document.getElementById("main-product-img");
+      if (mainImg) mainImg.src = selected.image;
+
+      const breadcrumbName = document.getElementById("breadcrumb-pen-name");
+      if (breadcrumbName) breadcrumbName.textContent = selected.name;
+
+      const selectedTipBadge = document.getElementById("selected-tip-badge");
+      if (selectedTipBadge) selectedTipBadge.textContent = `Modelo: ${selected.tip} (${selected.categoryLabel})`;
+
+      const badgeText = document.getElementById("badge-text");
+      if (badgeText) badgeText.textContent = selected.badge;
+
+      const statusText = document.getElementById("status-text");
+      if (statusText) statusText.textContent = selected.status;
+
+      const heroTip = document.getElementById("hero-tip-text");
+      if (heroTip) heroTip.textContent = selected.tip;
+
+      const heroCodename = document.getElementById("hero-codename");
+      if (heroCodename) heroCodename.textContent = selected.codename;
+
+      const categoryLabel = document.getElementById("category-label");
+      if (categoryLabel) categoryLabel.textContent = selected.categoryLabel;
+
+      const categoryCodename = document.getElementById("category-codename");
+      if (categoryCodename) categoryCodename.textContent = selected.codename;
+
+      const penTitle = document.getElementById("pen-title");
+      if (penTitle) penTitle.textContent = selected.name;
+
+      const penTagline = document.getElementById("pen-tagline");
+      if (penTagline) penTagline.textContent = selected.tagline;
+
+      const penDesc = document.getElementById("pen-desc");
+      if (penDesc) penDesc.textContent = selected.description;
+
+      const penStory = document.getElementById("pen-story");
+      if (penStory) penStory.textContent = selected.detailedStory;
+
+      const penOrigPrice = document.getElementById("pen-original-price");
+      if (penOrigPrice) penOrigPrice.textContent = selected.price;
+
+      const penVipPrice = document.getElementById("pen-vip-price");
+      if (penVipPrice) penVipPrice.textContent = selected.vipPrice;
+
+      const penInstallments = document.getElementById("pen-installments");
+      if (penInstallments) penInstallments.textContent = selected.installments;
+
+      const launchQuarter = document.getElementById("launch-quarter");
+      if (launchQuarter) launchQuarter.textContent = `${selected.launchQuarter} // Lote VIP`;
+
+      const vipSlots = document.getElementById("vip-slots");
+      if (vipSlots) vipSlots.textContent = `${selected.vipSlotsRemaining} vagas`;
+
+      const featuresList = document.getElementById("features-list");
+      if (featuresList) {
+        featuresList.innerHTML = selected.features
+          .map(
+            (feat) => `
+          <li class="flex items-start gap-2 text-xs text-stone-700 font-sans">
+            <iconify-icon icon="solar:check-circle-bold" class="text-stone-900 text-sm flex-shrink-0 mt-0.5"></iconify-icon>
+            <span>${feat}</span>
+          </li>`
+          )
+          .join("");
+      }
+
+      const specFields = ["ponta", "tinta", "secagem", "corpo", "peso", "comprimento", "capacidade", "resistencia"];
+      specFields.forEach((key) => {
+        const el = document.getElementById(`spec-${key}`);
+        if (el && selected.specs[key]) {
+          el.textContent = selected.specs[key];
+        }
+      });
+
+      const boxContentsGrid = document.getElementById("box-contents-grid");
+      if (boxContentsGrid) {
+        boxContentsGrid.innerHTML = selected.boxContents
+          .map(
+            (item, idx) => `
+          <div class="flex items-center gap-2.5 p-3 rounded-lg bg-white border border-stone-200 text-xs font-mono text-stone-700">
+            <span class="w-5 h-5 rounded bg-stone-900 text-white flex items-center justify-center font-bold text-[10px]">
+              0${idx + 1}
+            </span>
+            <span class="truncate">${item}</span>
+          </div>`
+          )
+          .join("");
+      }
+
+      if (ctx) {
+        ctx.lineWidth = Math.max(1, selected.strokeWidth);
+      }
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const penId = btn.getAttribute("data-pen-id");
+        switchPen(penId);
+      });
+    });
+
+    // 3. MODAL LOGIC - ONLY OPENS ON USER CLICK
+    const modal = document.getElementById("notify-modal");
+    const modalCard = document.getElementById("modal-card");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    const modalDoneBtn = document.getElementById("modal-done-btn");
+    const modalForm = document.getElementById("notify-form");
+    const modalFormView = document.getElementById("modal-form-view");
+    const modalSuccessView = document.getElementById("modal-success-view");
+    const notifyBtn = document.getElementById("pdp-notify-btn");
+    const toast = document.getElementById("toast-notification");
+    const toastMessage = document.getElementById("toast-message");
+
+    const modalPenImg = document.getElementById("modal-pen-img");
+    const modalPenName = document.getElementById("modal-pen-name");
+    const modalPenTip = document.getElementById("modal-pen-tip");
+    const modalPenPrice = document.getElementById("modal-pen-price");
+    const modalSuccessPenName = document.getElementById("modal-success-pen-name");
+
+    function openModal() {
+      if (modalPenImg) modalPenImg.src = currentPen.image;
+      if (modalPenName) modalPenName.textContent = currentPen.name;
+      if (modalPenTip) modalPenTip.textContent = `Ponta: ${currentPen.tip} (${currentPen.codename})`;
+      if (modalPenPrice) modalPenPrice.textContent = `${currentPen.vipPrice} (VIP)`;
+      if (modalSuccessPenName) modalSuccessPenName.textContent = currentPen.name;
+
+      if (modalFormView) modalFormView.classList.remove("hidden");
+      if (modalSuccessView) modalSuccessView.classList.add("hidden");
+      if (modalForm) modalForm.reset();
+
+      if (modal) {
+        modal.classList.remove("hidden");
+        void modal.offsetWidth;
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modal.classList.add("opacity-100", "pointer-events-auto");
+        modal.setAttribute("aria-hidden", "false");
+      }
+      if (modalCard) {
+        modalCard.classList.remove("scale-95");
+        modalCard.classList.add("scale-100");
+      }
+    }
+
+    function closeModal() {
+      if (modal) {
+        modal.classList.remove("opacity-100", "pointer-events-auto");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modal.setAttribute("aria-hidden", "true");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 200);
+      }
+      if (modalCard) {
+        modalCard.classList.remove("scale-100");
+        modalCard.classList.add("scale-95");
+      }
+    }
+
+    function showToast(msg) {
+      if (toast && toastMessage) {
+        toastMessage.textContent = msg;
+        toast.classList.remove("translate-y-20", "opacity-0", "pointer-events-none");
+        toast.classList.add("translate-y-0", "opacity-100");
+
+        setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-20", "opacity-0", "pointer-events-none");
+        }, 3500);
+      }
+    }
+
+    if (notifyBtn) {
+      notifyBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeModal);
+    if (modalDoneBtn) modalDoneBtn.addEventListener("click", closeModal);
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
+        closeModal();
+      }
+    });
+
+    if (modalForm) {
+      modalForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById("modal-submit-btn");
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `
+            <iconify-icon icon="solar:spinner-linear" class="text-sm animate-spin"></iconify-icon>
+            <span>Salvando...</span>
+          `;
+        }
+
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `
+              <iconify-icon icon="solar:check-circle-bold" class="text-sm"></iconify-icon>
+              <span>Confirmar Inscrição</span>
+            `;
+          }
+          if (modalFormView) modalFormView.classList.add("hidden");
+          if (modalSuccessView) modalSuccessView.classList.remove("hidden");
+          showToast(`Inscrição confirmada para ${currentPen.name}!`);
+        }, 500);
+      });
+    }
+  });
+</script>

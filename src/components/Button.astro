@@ -1,0 +1,157 @@
+---
+interface Props {
+  variant?: "beam" | "beam-light" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  rounded?: string;
+  icon?: string;
+  iconPosition?: "left" | "right";
+  id?: string;
+  class?: string;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  [key: string]: any;
+}
+
+const {
+  variant = "beam",
+  size = "md",
+  rounded = "rounded-xl",
+  icon,
+  iconPosition = "right",
+  id,
+  class: className = "",
+  href,
+  type = "button",
+  ...rest
+} = Astro.props;
+
+const sizeStyles = {
+  sm: "px-4 py-2 text-[11px] tracking-wider",
+  md: "px-6 py-3 md:px-7 md:py-3.5 text-xs tracking-wider",
+  lg: "px-7 py-3.5 md:py-4 text-xs tracking-wider",
+};
+
+const Tag = href ? "a" : "button";
+---
+
+{
+  variant === "beam" && (
+    <Tag
+      id={id}
+      href={href}
+      type={!href ? type : undefined}
+      class:list={[
+        "btn-beam px-[1px] py-[1px] group cursor-pointer shadow-md shadow-stone-950/5 hover:shadow-lg transition-all duration-300 hover:-translate-y-[1px]",
+        rounded,
+        className,
+      ]}
+      {...rest}
+    >
+      <div
+        class:list={[
+          "btn-beam-content font-mono uppercase font-bold flex items-center justify-center gap-2",
+          rounded,
+          sizeStyles[size],
+        ]}
+      >
+        {icon && iconPosition === "left" && (
+          <iconify-icon
+            icon={icon}
+            class="text-sm md:text-base group-hover:-translate-x-1 transition-transform duration-300"
+          />
+        )}
+        <slot />
+        {icon && iconPosition === "right" && (
+          <iconify-icon
+            icon={icon}
+            class="text-sm md:text-base group-hover:translate-x-1.5 transition-transform duration-300"
+          />
+        )}
+      </div>
+    </Tag>
+  )
+}
+
+{
+  variant === "beam-light" && (
+    <Tag
+      id={id}
+      href={href}
+      type={!href ? type : undefined}
+      class:list={[
+        "btn-beam-light px-[1px] py-[1px] group cursor-pointer transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-[1px]",
+        rounded,
+        className,
+      ]}
+      {...rest}
+    >
+      <div
+        class:list={[
+          "btn-beam-light-content w-full font-mono uppercase font-bold flex items-center justify-center gap-2 shadow-sm group-hover:scale-[1.01] transition-transform",
+          rounded,
+          sizeStyles[size],
+        ]}
+      >
+        {icon && iconPosition === "left" && (
+          <iconify-icon
+            icon={icon}
+            class="text-sm md:text-base group-hover:-translate-x-1 transition-transform duration-300"
+          />
+        )}
+        <slot />
+        {icon && iconPosition === "right" && (
+          <iconify-icon
+            icon={icon}
+            class="text-sm md:text-base group-hover:translate-x-1 transition-transform duration-300"
+          />
+        )}
+      </div>
+    </Tag>
+  )
+}
+
+{
+  variant === "outline" && (
+    <Tag
+      id={id}
+      href={href}
+      type={!href ? type : undefined}
+      class:list={[
+        "border border-stone-300/80 font-mono uppercase text-stone-900 hover:bg-white hover:border-stone-400 hover:shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-[1px] backdrop-blur-sm bg-white/50 group inline-flex items-center justify-center gap-2 cursor-pointer font-medium",
+        rounded,
+        sizeStyles[size],
+        className,
+      ]}
+      {...rest}
+    >
+      {icon && iconPosition === "left" && (
+        <iconify-icon icon={icon} class="text-sm md:text-base opacity-80 group-hover:opacity-100" />
+      )}
+      <span class="opacity-90 group-hover:opacity-100 transition-opacity font-semibold">
+        <slot />
+      </span>
+      {icon && iconPosition === "right" && (
+        <iconify-icon icon={icon} class="text-sm md:text-base opacity-80 group-hover:opacity-100" />
+      )}
+    </Tag>
+  )
+}
+
+{
+  variant === "ghost" && (
+    <Tag
+      id={id}
+      href={href}
+      type={!href ? type : undefined}
+      class:list={[
+        "font-mono uppercase text-stone-600 hover:text-stone-950 hover:bg-stone-200/50 transition-all inline-flex items-center justify-center gap-2 cursor-pointer",
+        rounded,
+        sizeStyles[size],
+        className,
+      ]}
+      {...rest}
+    >
+      <slot />
+    </Tag>
+  )
+}

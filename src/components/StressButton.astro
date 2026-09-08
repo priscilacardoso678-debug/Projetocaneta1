@@ -1,0 +1,48 @@
+---
+interface Props {
+  stress: "water" | "uv" | "chemical";
+  icon: string;
+  iconColor?: string;
+  title: string;
+  subtitle: string;
+  active?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  stress,
+  icon,
+  iconColor = "text-blue-400",
+  title,
+  subtitle,
+  active = false,
+  class: className = "",
+  ...rest
+} = Astro.props;
+---
+
+<button
+  data-stress={stress}
+  class:list={[
+    "stress-btn p-2.5 rounded-xl border text-left transition-all hover:bg-stone-800 cursor-pointer",
+    active
+      ? "active bg-stone-800/80 border-stone-700"
+      : "bg-stone-950/60 border-stone-800",
+    className,
+  ]}
+  {...rest}
+>
+  <iconify-icon icon={icon} class:list={[iconColor, "text-base mb-1 block"]} />
+  <span
+    class:list={[
+      "font-mono text-[10px] font-bold block",
+      active ? "text-white" : "text-stone-300",
+    ]}
+  >
+    {title}
+  </span>
+  <span class:list={["text-[9px] block", active ? "text-stone-400" : "text-stone-500"]}>
+    {subtitle}
+  </span>
+</button>

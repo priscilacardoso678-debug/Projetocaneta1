@@ -1,0 +1,29 @@
+---
+interface Props {
+  label: string;
+  icon: string;
+  value: string;
+  description: string;
+  class?: string;
+}
+
+const { label, icon, value, description, class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "exp-stat-card bg-stone-900/60 border border-stone-800/90 rounded-2xl p-6 backdrop-blur-md hover:border-stone-600 transition-all duration-300 hover:-translate-y-1 group",
+    className,
+  ]}
+>
+  <div class="flex items-center justify-between text-stone-500 font-mono text-[10px] uppercase tracking-widest mb-4">
+    <span>{label}</span>
+    <iconify-icon icon={icon} class="text-base text-stone-400 group-hover:text-white transition-colors"></iconify-icon>
+  </div>
+  <div class="font-display font-bold text-4xl lg:text-5xl text-white tracking-tight group-hover:scale-105 transition-transform duration-300">
+    {value}
+  </div>
+  <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+    {description}
+  </p>
+</div>
